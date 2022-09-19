@@ -1,0 +1,19 @@
+Source: avr-ll
+Section: electronics
+Priority: optional
+Maintainer: Bas Wijnen <wijnen@debian.org>
+Build-Depends: debhelper (>= 11)
+Standards-Version: 4.6.1
+
+Package: avr-ll
+Architecture: all
+Depends: ${misc:Depends}, gcc-avr
+Recommends: avrdude
+Description: build system for avr devices with low level features
+ Arduino is the most common build system for avr microcontrollers. This package
+ provides an alternative to that. The main differences are:
+  * There is no mandatory data or code stored in flash,
+  * this makes it feasable to write code for AVRTiny devices.
+  * The system expects interrupts to be used everywhen, no busy waits.
+  * It is trivial to compile for a different device frequency.
+  * Builds for different cpu and frequency do not interere with each other.

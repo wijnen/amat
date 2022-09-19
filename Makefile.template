@@ -1,0 +1,21 @@
+# This is a template Makefile for building programs for avr microcontrollers using avr.h.
+# Copy it to your source directory and adapt it to your needs if you want to use it.
+# For more information, see the initial part of avr.mk.
+
+# Set this to your program name.
+TARGET = myprogram
+
+# List the program's sources.
+# Files named *.cc are compiled below.
+# Other files are treated as dependencies for all files.
+myprogram_SOURCES = \
+	  myprogram.cc \
+	  myprogram.hh
+
+# Target mcu and upload settings.
+MCU ?= atmega328p
+F_CPU ?= 16000000
+PROTOCOL ?= arduino
+BAUD ?= 57600
+
+include /usr/share/avr-ll/avr-ll.mk

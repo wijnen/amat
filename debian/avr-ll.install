@@ -1,0 +1,4 @@
+parts/*.hh	/usr/include/avr-ll/parts/
+mcu/*.hh	/usr/include/avr-ll/mcu/
+avr-ll.hh	/usr/include/avr-ll/
+avr-ll.mk	/usr/share/avr-ll/

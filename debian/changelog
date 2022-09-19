@@ -1,0 +1,5 @@
+avr-ll (0.1-1) UNRELEASED; urgency=medium
+
+  * Initial release. (Closes: #XXXXXX)
+
+ -- Bas Wijnen <wijnen@debian.org>  Thu, 25 Aug 2022 08:48:22 +0200
