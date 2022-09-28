@@ -18,4 +18,4 @@ F_CPU ?= 16000000
 PROTOCOL ?= arduino
 BAUD ?= 57600
 
-include /usr/share/avr-ll/avr-ll.mk
+include avr-ll.mk

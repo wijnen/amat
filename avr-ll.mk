@@ -33,7 +33,7 @@ TARGETS ?= firmware
 
 
 # Build flags.
-CPPFLAGS ?= -Wall -Wextra -ggdb3 -Wformat -Werror=format-security -D_FORTIFY_SOURCE=2 -Wshadow -fno-strict-aliasing -Werror --param=ssp-buffer-size=4 ${EXTRA_CPPFLAGS}
+CPPFLAGS ?= -Wall -Wextra -ggdb3 -Wformat -Werror=format-security -D_FORTIFY_SOURCE=2 -Wshadow -fno-strict-aliasing -Werror --param=ssp-buffer-size=4 -std=c++11 ${EXTRA_CPPFLAGS}
 CXXFLAGS ?= -Os ${EXTRA_CXXFLAGS}
 LDFLAGS ?= ${EXTRA_LDFLAGS}
 LIBS ?= ${EXTRA_LIBS}
@@ -64,7 +64,7 @@ FULL_SUFFIX :=
 endif
 
 # Determine the path to the sources.
-AVR_HH_PATH := $(patsubst /usr/share/%,/usr/include/%,$(dir $(lastword ${MAKEFILE_LIST})))
+AVR_HH_PATH := $(realpath $(dir $(lastword ${MAKEFILE_LIST})))/avr-ll
 
 BASE_MAKEFILES := ${MAKEFILE_LIST}
 
@@ -108,9 +108,11 @@ build/%.d:
 %.hex: TARGET_ID = $(subst -,_,$(basename $@))
 
 build/%_${MCU}_${F_CPU}${FULL_SUFFIX}.o: %.cc ${BASE_MAKEFILES}
+	mkdir -p "$(dir $@)"
 	avr-g++ ${CPPFLAGS} ${CXXFLAGS} -c "$<" -o "$@"
 
 %.elf: ${BASE_MAKEFILES}
+	mkdir -p "$(dir $@)"
 	avr-g++ ${LDFLAGS} ${$(subst -,_,$(patsubst %.elf,%_OBJS,$(notdir $@)))} -o "$@" ${LIBS}
 	avr-size --format=avr --mcu=${MCU} "$@"
 

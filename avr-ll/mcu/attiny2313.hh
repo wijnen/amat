@@ -12,7 +12,6 @@
 #define TIFR1 TIFR
 #define OC1A_PIN GPIO_MAKE_PIN(PB, 3)
 #define OC1B_PIN GPIO_MAKE_PIN(PB, 4)
-#define OC1C_PIN 0xff
 #define T1_PIN GPIO_MAKE_PIN(PD, 5)
 #define ICP1_PIN GPIO_MAKE_PIN(PD, 6)
 // }}}

@@ -165,6 +165,27 @@ namespace Counter {
 		/// External pin T1, rising edge
 		s1_T_rising = 7
 	}; // }}}
+	/// @cond
+#define _AVR_COUNTER1_D2S(div, x) div == x ? Counter::s1_div ## x :
+#define _AVR_COUNTER1_S2D(src, x) src == Counter::s1_div ## x ? x :
+/// @endcond
+        /// Convert numerical divider to Source1
+#define COUNTER1_DIV_TO_SOURCE(div) ( \
+        _AVR_COUNTER1_D2S(div, 1024) \
+        _AVR_COUNTER1_D2S(div, 256) \
+        _AVR_COUNTER1_D2S(div, 64) \
+        _AVR_COUNTER1_D2S(div, 8) \
+        _AVR_COUNTER1_D2S(div, 1) \
+        Counter::s1_off )
+        /// Convert Source1 to numerical divider
+#define COUNTER1_SOURCE_TO_DIV(src) ( \
+        _AVR_COUNTER1_S2D(src, 1024) \
+        _AVR_COUNTER1_S2D(src, 256) \
+        _AVR_COUNTER1_S2D(src, 64) \
+        _AVR_COUNTER1_S2D(src, 8) \
+        _AVR_COUNTER1_S2D(src, 1) \
+        0 )
+        // }}}
 
 	/// Counter mode.
 	enum Mode1 { // {{{
@@ -448,6 +469,7 @@ namespace Counter {
 		TCNT ## N ## L = hl & 0xff; \
 	} \
 	static inline bool has_ovf ## N() { return TIFR ## N & _BV(TOV ## N); } \
+	static inline bool has_capt ## N() { return TIFR ## N & _BV(ICF ## N); } \
 	static inline void clear_ints ## N() { TIFR ## N = _BV(TOV ## N) | _BV(OCF ## N ## A) | _BV(OCF ## N ## B) | _BV(ICF ## N); }
 
 #define _AVR_COUNTER1_OCR(N, p, P) \
@@ -666,7 +688,15 @@ namespace Counter {
 	Counter::enable_comp1();
 #endif
 
+#ifdef SYSTEM_CLOCK1_ENABLE_CAPT
+#define _AVR_COUNTER_CHECK has_capt1
+#define _AVR_COUNTER_CLEAR ICF1
+ISR(TIMER1_CAPT_vect) {
+#else
+#define _AVR_COUNTER_CHECK has_ocf1a
+#define _AVR_COUNTER_CLEAR OCF1A
 ISR(TIMER1_COMPA_vect) {
+#endif
 	++Counter::counter1_time;
 #ifdef CALL_system_clock1_interrupt
 	if (Counter::counter1_target_active && (Counter::counter1_target == Counter::counter1_time)) {
@@ -690,11 +720,11 @@ ISR(TIMER1_COMPA_vect) {
 		while (time != target) {
 			// This may be called with interrupts disabled, so handle overflow events.
 			// If interrupts are enabled, this code will never see the flag as set.
-			if (!Counter::has_ocf1a()) {
+			if (!Counter::_AVR_COUNTER_CHECK()) {
 				time = get_time1();
 				continue;
 			}
-			TIFR1 |= _BV(OCF1A);
+			TIFR1 |= _BV(_AVR_COUNTER_CLEAR);
 			++counter1_time;
 #ifdef CALL_system_clock1_interrupt
 			if (counter1_target_active && (counter1_time == counter1_target)) {
@@ -849,16 +879,24 @@ ISR(TIMER1_COMPA_vect) {
 #ifdef SYSTEM_CLOCK3_ENABLE_CAPT
 #define _AVR_SETUP_COUNTER3 \
 	Counter::set_icr3(SYSTEM_CLOCK3_TICKS_PER_UNIT); \
-	Counter::enable3(COUNTER3_DIV_TO_SOURCE(SYSTEM_CLOCK3_DIVIDER), Counter::m3_ctc_icr); \
+	Counter::enable3(COUNTER1_DIV_TO_SOURCE(SYSTEM_CLOCK3_DIVIDER), Counter::m3_ctc_icr); \
 	Counter::enable_capt3();
 #else
 #define _AVR_SETUP_COUNTER3 \
 	Counter::set_ocr3a(SYSTEM_CLOCK3_TICKS_PER_UNIT); \
-	Counter::enable3(COUNTER3_DIV_TO_SOURCE(SYSTEM_CLOCK3_DIVIDER), Counter::m3_ctc_ocra); \
+	Counter::enable3(COUNTER1_DIV_TO_SOURCE(SYSTEM_CLOCK3_DIVIDER), Counter::m3_ctc_ocra); \
 	Counter::enable_comp3();
 #endif
 
+#ifdef SYSTEM_CLOCK3_ENABLE_CAPT
+#define _AVR_COUNTER_CHECK has_capt3
+#define _AVR_COUNTER_CLEAR ICF1
+ISR(TIMER3_CAPT_vect) {
+#else
+#define _AVR_COUNTER_CHECK has_ocf3a
+#define _AVR_COUNTER_CLEAR OCF3A
 ISR(TIMER3_COMPA_vect) {
+#endif
 	++Counter::counter3_time;
 #ifdef CALL_system_clock3_interrupt
 	if (Counter::counter3_target_active && (Counter::counter3_target == Counter::counter3_time)) {
@@ -880,11 +918,11 @@ ISR(TIMER3_COMPA_vect) {
 		while (time != target) {
 			// This may be called with interrupts disabled, so handle overflow events.
 			// If interrupts are enabled, this code will never see the flag as set.
-			if (!Counter::has_ocf3a()) {
+			if (!Counter::_AVR_COUNTER_CHECK()) {
 				time = get_time3();
 				continue;
 			}
-			TIFR3 |= _BV(OCF3A);
+			TIFR3 |= _BV(_AVR_COUNTER_CLEAR);
 			++counter3_time;
 #ifdef CALL_system_clock3_interrupt
 			if (counter3_target_active && (counter3_time == counter3_target)) {
@@ -1031,16 +1069,24 @@ ISR(TIMER3_COMPA_vect) {
 #ifdef SYSTEM_CLOCK4_ENABLE_CAPT
 #define _AVR_SETUP_COUNTER4 \
 	Counter::set_icr4(SYSTEM_CLOCK4_TICKS_PER_UNIT); \
-	Counter::enable4(COUNTER4_DIV_TO_SOURCE(SYSTEM_CLOCK4_DIVIDER), Counter::m4_ctc_icr); \
+	Counter::enable4(COUNTER1_DIV_TO_SOURCE(SYSTEM_CLOCK4_DIVIDER), Counter::m4_ctc_icr); \
 	Counter::enable_capt4();
 #else
 #define _AVR_SETUP_COUNTER4 \
 	Counter::set_ocr4a(SYSTEM_CLOCK4_TICKS_PER_UNIT); \
-	Counter::enable4(COUNTER4_DIV_TO_SOURCE(SYSTEM_CLOCK4_DIVIDER), Counter::m4_ctc_ocra); \
+	Counter::enable4(COUNTER1_DIV_TO_SOURCE(SYSTEM_CLOCK4_DIVIDER), Counter::m4_ctc_ocra); \
 	Counter::enable_comp4();
 #endif
 
+#ifdef SYSTEM_CLOCK4_ENABLE_CAPT
+#define _AVR_COUNTER_CHECK has_capt4
+#define _AVR_COUNTER_CLEAR ICF4
+ISR(TIMER4_CAPT_vect) {
+#else
+#define _AVR_COUNTER_CHECK has_ocf4a
+#define _AVR_COUNTER_CLEAR OCF4A
 ISR(TIMER4_COMPA_vect) {
+#endif
 	++Counter::counter4_time;
 #ifdef CALL_system_clock4_interrupt
 	if (Counter::counter4_target_active && (Counter::counter4_target == Counter::counter4_time)) {
@@ -1062,11 +1108,11 @@ ISR(TIMER4_COMPA_vect) {
 		while (time != target) {
 			// This may be called with interrupts disabled, so handle overflow events.
 			// If interrupts are enabled, this code will never see the flag as set.
-			if (!Counter::has_ocf4a()) {
+			if (!Counter::_AVR_COUNTER_CHECK()) {
 				time = get_time4();
 				continue;
 			}
-			TIFR4 |= _BV(OCF4A);
+			TIFR4 |= _BV(_AVR_COUNTER_CLEAR);
 			++counter4_time;
 #ifdef CALL_system_clock4_interrupt
 			if (counter4_target_active && (counter4_time == counter4_target)) {
@@ -1213,16 +1259,24 @@ ISR(TIMER4_COMPA_vect) {
 #ifdef SYSTEM_CLOCK5_ENABLE_CAPT
 #define _AVR_SETUP_COUNTER5 \
 	Counter::set_icr5(SYSTEM_CLOCK5_TICKS_PER_UNIT); \
-	Counter::enable5(COUNTER5_DIV_TO_SOURCE(SYSTEM_CLOCK5_DIVIDER), Counter::m5_ctc_icr); \
+	Counter::enable5(COUNTER1_DIV_TO_SOURCE(SYSTEM_CLOCK5_DIVIDER), Counter::m5_ctc_icr); \
 	Counter::enable_capt5();
 #else
 #define _AVR_SETUP_COUNTER5 \
 	Counter::set_ocr5a(SYSTEM_CLOCK5_TICKS_PER_UNIT); \
-	Counter::enable5(COUNTER5_DIV_TO_SOURCE(SYSTEM_CLOCK5_DIVIDER), Counter::m5_ctc_ocra); \
+	Counter::enable5(COUNTER1_DIV_TO_SOURCE(SYSTEM_CLOCK5_DIVIDER), Counter::m5_ctc_ocra); \
 	Counter::enable_comp5();
 #endif
 
+#ifdef SYSTEM_CLOCK5_ENABLE_CAPT
+#define _AVR_COUNTER_CHECK has_capt5
+#define _AVR_COUNTER_CLEAR ICF5
+ISR(TIMER5_CAPT_vect) {
+#else
+#define _AVR_COUNTER_CHECK has_ocf5a
+#define _AVR_COUNTER_CLEAR OCF5A
 ISR(TIMER5_COMPA_vect) {
+#endif
 	++Counter::counter5_time;
 #ifdef CALL_system_clock5_interrupt
 	if (Counter::counter5_target_active && (Counter::counter5_target == Counter::counter5_time)) {
@@ -1244,11 +1298,11 @@ ISR(TIMER5_COMPA_vect) {
 		while (time != target) {
 			// This may be called with interrupts disabled, so handle overflow events.
 			// If interrupts are enabled, this code will never see the flag as set.
-			if (!Counter::has_ocf5a()) {
+			if (!Counter::_AVR_COUNTER_CHECK()) {
 				time = get_time5();
 				continue;
 			}
-			TIFR5 |= _BV(OCF5A);
+			TIFR5 |= _BV(_AVR_COUNTER_CLEAR);
 			++counter5_time;
 #ifdef CALL_system_clock5_interrupt
 			if (counter5_target_active && (counter5_time == counter5_target)) {

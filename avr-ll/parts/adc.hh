@@ -40,243 +40,349 @@ ISR(ADC_vect) {
 /// @cond
 // Find number of pins and build pin id array for test. {{{
 #ifdef ADC15_PIN
-#	ifndef AVR_ADC_LAST_PIN
-#		define AVR_ADC_LAST_PIN 15
+#	ifndef ADC_LAST_PIN
+#		define ADC_LAST_PIN 15
 #		define _AVR_ADC15 ADC15_PIN
-#else
+#	else
 #		define _AVR_ADC15 ADC15_PIN,
 #	endif
+#	define _AVR_ADC15_N 1
 #else
-#	ifdef AVR_ADC_LAST_PIN
-#	define _AVR_ADC15 0xff,
+#	ifdef ADC_LAST_PIN
+#		define _AVR_ADC15 0xff,
 #	else
-#	define _AVR_ADC15
+#		define _AVR_ADC15
 #	endif
+#	define _AVR_ADC15_N 0
 #endif
 
 #ifdef ADC14_PIN
-#	ifndef AVR_ADC_LAST_PIN
-#		define AVR_ADC_LAST_PIN 14
+#	ifndef ADC_LAST_PIN
+#		define ADC_LAST_PIN 14
 #		define _AVR_ADC14 ADC14_PIN
-#else
+#	else
 #		define _AVR_ADC14 ADC14_PIN,
 #	endif
+#	define _AVR_ADC14_N 1
 #else
-#	ifdef AVR_ADC_LAST_PIN
-#	define _AVR_ADC14 0xff,
+#	ifdef ADC_LAST_PIN
+#		define _AVR_ADC14 0xff,
 #	else
-#	define _AVR_ADC14
+#		define _AVR_ADC14
 #	endif
+#	define _AVR_ADC14_N 0
 #endif
 
 #ifdef ADC13_PIN
-#	ifndef AVR_ADC_LAST_PIN
-#		define AVR_ADC_LAST_PIN 13
+#	ifndef ADC_LAST_PIN
+#		define ADC_LAST_PIN 13
 #		define _AVR_ADC13 ADC13_PIN
-#else
+#	else
 #		define _AVR_ADC13 ADC13_PIN,
 #	endif
+#	define _AVR_ADC13_N 1
 #else
-#	ifdef AVR_ADC_LAST_PIN
-#	define _AVR_ADC13 0xff,
+#	ifdef ADC_LAST_PIN
+#		define _AVR_ADC13 0xff,
 #	else
-#	define _AVR_ADC13
+#		define _AVR_ADC13
 #	endif
+#	define _AVR_ADC13_N 0
 #endif
 
 #ifdef ADC12_PIN
-#	ifndef AVR_ADC_LAST_PIN
-#		define AVR_ADC_LAST_PIN 12
+#	ifndef ADC_LAST_PIN
+#		define ADC_LAST_PIN 12
 #		define _AVR_ADC12 ADC12_PIN
-#else
+#	else
 #		define _AVR_ADC12 ADC12_PIN,
 #	endif
+#	define _AVR_ADC12_N 1
 #else
-#	ifdef AVR_ADC_LAST_PIN
-#	define _AVR_ADC12 0xff,
+#	ifdef ADC_LAST_PIN
+#		define _AVR_ADC12 0xff,
 #	else
-#	define _AVR_ADC12
+#		define _AVR_ADC12
 #	endif
+#	define _AVR_ADC12_N 0
 #endif
 
 #ifdef ADC11_PIN
-#	ifndef AVR_ADC_LAST_PIN
-#		define AVR_ADC_LAST_PIN 11
+#	ifndef ADC_LAST_PIN
+#		define ADC_LAST_PIN 11
 #		define _AVR_ADC11 ADC11_PIN
-#else
+#	else
 #		define _AVR_ADC11 ADC11_PIN,
 #	endif
+#	define _AVR_ADC11_N 1
 #else
-#	ifdef AVR_ADC_LAST_PIN
-#	define _AVR_ADC11 0xff,
+#	ifdef ADC_LAST_PIN
+#		define _AVR_ADC11 0xff,
 #	else
-#	define _AVR_ADC11
+#		define _AVR_ADC11
 #	endif
+#	define _AVR_ADC11_N 0
 #endif
 
 #ifdef ADC10_PIN
-#	ifndef AVR_ADC_LAST_PIN
-#		define AVR_ADC_LAST_PIN 10
+#	ifndef ADC_LAST_PIN
+#		define ADC_LAST_PIN 10
 #		define _AVR_ADC10 ADC10_PIN
-#else
+#	else
 #		define _AVR_ADC10 ADC10_PIN,
 #	endif
+#	define _AVR_ADC10_N 1
 #else
-#	ifdef AVR_ADC_LAST_PIN
-#	define _AVR_ADC10 0xff,
+#	ifdef ADC_LAST_PIN
+#		define _AVR_ADC10 0xff,
 #	else
-#	define _AVR_ADC10
+#		define _AVR_ADC10
 #	endif
+#	define _AVR_ADC10_N 0
 #endif
 
 #ifdef ADC9_PIN
-#	ifndef AVR_ADC_LAST_PIN
-#		define AVR_ADC_LAST_PIN 9
+#	ifndef ADC_LAST_PIN
+#		define ADC_LAST_PIN 9
 #		define _AVR_ADC9 ADC9_PIN
-#else
+#	else
 #		define _AVR_ADC9 ADC9_PIN,
 #	endif
+#	define _AVR_ADC9_N 1
 #else
-#	ifdef AVR_ADC_LAST_PIN
-#	define _AVR_ADC9 0xff,
+#	ifdef ADC_LAST_PIN
+#		define _AVR_ADC9 0xff,
 #	else
-#	define _AVR_ADC9
+#		define _AVR_ADC9
 #	endif
+#	define _AVR_ADC9_N 0
 #endif
 
 #ifdef ADC8_PIN
-#	ifndef AVR_ADC_LAST_PIN
-#		define AVR_ADC_LAST_PIN 8
+#	ifndef ADC_LAST_PIN
+#		define ADC_LAST_PIN 8
 #		define _AVR_ADC8 ADC8_PIN
-#else
+#	else
 #		define _AVR_ADC8 ADC8_PIN,
 #	endif
+#	define _AVR_ADC8_N 1
 #else
-#	ifdef AVR_ADC_LAST_PIN
-#	define _AVR_ADC8 0xff,
+#	ifdef ADC_LAST_PIN
+#		define _AVR_ADC8 0xff,
 #	else
-#	define _AVR_ADC8
+#		define _AVR_ADC8
 #	endif
+#	define _AVR_ADC8_N 0
 #endif
 
 #ifdef ADC7_PIN
-#	ifndef AVR_ADC_LAST_PIN
-#		define AVR_ADC_LAST_PIN 7
+#	ifndef ADC_LAST_PIN
+#		define ADC_LAST_PIN 7
 #		define _AVR_ADC7 ADC7_PIN
-#else
+#	else
 #		define _AVR_ADC7 ADC7_PIN,
 #	endif
+#	define _AVR_ADC7_N 1
 #else
-#	ifdef AVR_ADC_LAST_PIN
-#	define _AVR_ADC7 0xff,
+#	ifdef ADC_LAST_PIN
+#		define _AVR_ADC7 0xff,
 #	else
-#	define _AVR_ADC7
+#		define _AVR_ADC7
 #	endif
+#	define _AVR_ADC7_N 0
 #endif
 
 #ifdef ADC6_PIN
-#	ifndef AVR_ADC_LAST_PIN
-#		define AVR_ADC_LAST_PIN 6
+#	ifndef ADC_LAST_PIN
+#		define ADC_LAST_PIN 6
 #		define _AVR_ADC6 ADC6_PIN
-#else
+#	else
 #		define _AVR_ADC6 ADC6_PIN,
 #	endif
+#	define _AVR_ADC6_N 1
 #else
-#	ifdef AVR_ADC_LAST_PIN
-#	define _AVR_ADC6 0xff,
+#	ifdef ADC_LAST_PIN
+#		define _AVR_ADC6 0xff,
 #	else
-#	define _AVR_ADC6
+#		define _AVR_ADC6
 #	endif
+#	define _AVR_ADC6_N 0
 #endif
 
 #ifdef ADC5_PIN
-#	ifndef AVR_ADC_LAST_PIN
-#		define AVR_ADC_LAST_PIN 5
+#	ifndef ADC_LAST_PIN
+#		define ADC_LAST_PIN 5
 #		define _AVR_ADC5 ADC5_PIN
-#else
+#	else
 #		define _AVR_ADC5 ADC5_PIN,
 #	endif
+#	define _AVR_ADC5_N 1
 #else
-#	ifdef AVR_ADC_LAST_PIN
-#	define _AVR_ADC5 0xff,
+#	ifdef ADC_LAST_PIN
+#		define _AVR_ADC5 0xff,
 #	else
-#	define _AVR_ADC5
+#		define _AVR_ADC5
 #	endif
+#	define _AVR_ADC5_N 0
 #endif
 
 #ifdef ADC4_PIN
-#	ifndef AVR_ADC_LAST_PIN
-#		define AVR_ADC_LAST_PIN 4
+#	ifndef ADC_LAST_PIN
+#		define ADC_LAST_PIN 4
 #		define _AVR_ADC4 ADC4_PIN
-#else
+#	else
 #		define _AVR_ADC4 ADC4_PIN,
 #	endif
+#	define _AVR_ADC4_N 1
 #else
-#	ifdef AVR_ADC_LAST_PIN
-#	define _AVR_ADC4 0xff,
+#	ifdef ADC_LAST_PIN
+#		define _AVR_ADC4 0xff,
 #	else
-#	define _AVR_ADC4
+#		define _AVR_ADC4
 #	endif
+#	define _AVR_ADC4_N 0
 #endif
 
 #ifdef ADC3_PIN
-#	ifndef AVR_ADC_LAST_PIN
-#		define AVR_ADC_LAST_PIN 3
+#	ifndef ADC_LAST_PIN
+#		define ADC_LAST_PIN 3
 #		define _AVR_ADC3 ADC3_PIN
-#else
+#	else
 #		define _AVR_ADC3 ADC3_PIN,
 #	endif
+#	define _AVR_ADC3_N 1
 #else
-#	ifdef AVR_ADC_LAST_PIN
-#	define _AVR_ADC3 0xff,
+#	ifdef ADC_LAST_PIN
+#		define _AVR_ADC3 0xff,
 #	else
-#	define _AVR_ADC3
+#		define _AVR_ADC3
 #	endif
+#	define _AVR_ADC3_N 0
 #endif
 
 #ifdef ADC2_PIN
-#	ifndef AVR_ADC_LAST_PIN
-#		define AVR_ADC_LAST_PIN 2
+#	ifndef ADC_LAST_PIN
+#		define ADC_LAST_PIN 2
 #		define _AVR_ADC2 ADC2_PIN
-#else
+#	else
 #		define _AVR_ADC2 ADC2_PIN,
 #	endif
+#	define _AVR_ADC2_N 1
 #else
-#	ifdef AVR_ADC_LAST_PIN
-#	define _AVR_ADC2 0xff,
+#	ifdef ADC_LAST_PIN
+#		define _AVR_ADC2 0xff,
 #	else
-#	define _AVR_ADC2
+#		define _AVR_ADC2
 #	endif
+#	define _AVR_ADC2_N 0
 #endif
 
 #ifdef ADC1_PIN
-#	ifndef AVR_ADC_LAST_PIN
-#		define AVR_ADC_LAST_PIN 1
+#	ifndef ADC_LAST_PIN
+#		define ADC_LAST_PIN 1
 #		define _AVR_ADC1 ADC1_PIN
-#else
+#	else
 #		define _AVR_ADC1 ADC1_PIN,
 #	endif
+#	define _AVR_ADC1_N 1
 #else
-#	ifdef AVR_ADC_LAST_PIN
-#	define _AVR_ADC1 0xff,
+#	ifdef ADC_LAST_PIN
+#		define _AVR_ADC1 0xff,
 #	else
-#	define _AVR_ADC1
+#		define _AVR_ADC1
 #	endif
+#	define _AVR_ADC1_N 0
 #endif
 
 #ifdef ADC0_PIN
-#	ifndef AVR_ADC_LAST_PIN
-#		define AVR_ADC_LAST_PIN 0
+#	ifndef ADC_LAST_PIN
+#		define ADC_LAST_PIN 0
 #		define _AVR_ADC0 ADC0_PIN
-#else
+#	else
 #		define _AVR_ADC0 ADC0_PIN,
 #	endif
+#	define _AVR_ADC0_N 1
 #else
-#	ifdef AVR_ADC_LAST_PIN
-#	define _AVR_ADC0 0xff,
+#	ifdef ADC_LAST_PIN
+#		define _AVR_ADC0 0xff,
 #	else
-#	define _AVR_ADC0
+#		define _AVR_ADC0
 #	endif
+#	define _AVR_ADC0_N 0
+#endif
+
+#define ADC_NUM_PINS (_AVR_ADC0_N + _AVR_ADC1_N + _AVR_ADC2_N + _AVR_ADC3_N + _AVR_ADC4_N + _AVR_ADC5_N + _AVR_ADC6_N + _AVR_ADC7_N + _AVR_ADC8_N + _AVR_ADC9_N + _AVR_ADC10_N + _AVR_ADC11_N + _AVR_ADC12_N + _AVR_ADC13_N + _AVR_ADC14_N + _AVR_ADC15_N)
+
+#define ADC_PIN_MASK ( \
+		(_AVR_ADC0_N << 0) | \
+		(_AVR_ADC1_N << 1) | \
+		(_AVR_ADC2_N << 2) | \
+		(_AVR_ADC3_N << 3) | \
+		(_AVR_ADC4_N << 4) | \
+		(_AVR_ADC5_N << 5) | \
+		(_AVR_ADC6_N << 6) | \
+		(_AVR_ADC7_N << 7) | \
+		(_AVR_ADC8_N << 8) | \
+		(_AVR_ADC9_N << 9) | \
+		(_AVR_ADC10_N << 10) | \
+		(_AVR_ADC11_N << 11) | \
+		(_AVR_ADC12_N << 12) | \
+		(_AVR_ADC13_N << 13) | \
+		(_AVR_ADC14_N << 14) | \
+		(_AVR_ADC15_N << 15) \
+	)
+
+#ifdef ADC_ENABLE_PIN_LIST
+uint8_t adc_pin_list[ADC_NUM_PINS] = {
+#ifdef ADC0_PIN
+	ADC0_PIN,
+#endif
+#ifdef ADC1_PIN
+	ADC1_PIN,
+#endif
+#ifdef ADC2_PIN
+	ADC2_PIN,
+#endif
+#ifdef ADC3_PIN
+	ADC3_PIN,
+#endif
+#ifdef ADC4_PIN
+	ADC4_PIN,
+#endif
+#ifdef ADC5_PIN
+	ADC5_PIN,
+#endif
+#ifdef ADC6_PIN
+	ADC6_PIN,
+#endif
+#ifdef ADC7_PIN
+	ADC7_PIN,
+#endif
+#ifdef ADC8_PIN
+	ADC8_PIN,
+#endif
+#ifdef ADC9_PIN
+	ADC9_PIN,
+#endif
+#ifdef ADC10_PIN
+	ADC10_PIN,
+#endif
+#ifdef ADC11_PIN
+	ADC11_PIN,
+#endif
+#ifdef ADC12_PIN
+	ADC12_PIN,
+#endif
+#ifdef ADC13_PIN
+	ADC13_PIN,
+#endif
+#ifdef ADC14_PIN
+	ADC14_PIN,
+#endif
+#ifdef ADC15_PIN
+	ADC15_PIN,
+#endif
+};
 #endif
 
 #define _AVR_ADC_IDS { \

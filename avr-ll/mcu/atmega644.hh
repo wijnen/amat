@@ -1,5 +1,5 @@
-#ifndef _AVR_ATMEGA1284P
-#define _AVR_ATMEGA1284P
+#ifndef _AVR_ATMEGA644
+#define _AVR_ATMEGA644
 
 // Timers {{{
 #define OC0A_PIN GPIO_MAKE_PIN(PB, 3)
@@ -8,18 +8,11 @@
 
 #define OC1A_PIN GPIO_MAKE_PIN(PD, 5)
 #define OC1B_PIN GPIO_MAKE_PIN(PD, 4)
-#define OC1C_PIN 0xff
 #define T1_PIN GPIO_MAKE_PIN(PB, 1)
 #define ICP1_PIN GPIO_MAKE_PIN(PD, 6)
 
 #define OC2A_PIN GPIO_MAKE_PIN(PD, 7)
 #define OC2B_PIN GPIO_MAKE_PIN(PD, 6)
-
-#define OC3A_PIN GPIO_MAKE_PIN(PB, 6)
-#define OC3B_PIN GPIO_MAKE_PIN(PB, 7)
-#define OC3C_PIN 0xff
-#define T3_PIN GPIO_MAKE_PIN(PD, 0)
-#define ICP3_PIN GPIO_MAKE_PIN(PB, 5)
 // }}}
 
 // Adc {{{

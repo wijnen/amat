@@ -188,10 +188,18 @@ namespace Adc {
 #define ICP1_PIN GPIO_MAKE_PIN(PD, 4)
 
 #define OC3A_PIN GPIO_MAKE_PIN(PC, 6)
-#define OC3B_PIN 0xff
-#define OC3C_PIN 0xff
-#define T3_PIN 0xff
 #define ICP3_PIN GPIO_MAKE_PIN(PC, 7)
+// }}}
+
+// High speed counter {{{
+#define OC4A_PIN GPIO_MAKE_PIN(PC, 7)
+#define NOT_OC4A_PIN GPIO_MAKE_PIN(PC, 6)
+
+#define OC4B_PIN GPIO_MAKE_PIN(PB, 6)
+#define NOT_OC4B_PIN GPIO_MAKE_PIN(PB, 5)
+
+#define OC4D_PIN GPIO_MAKE_PIN(PD, 7)
+#define NOT_OC4D_PIN GPIO_MAKE_PIN(PD, 6)
 // }}}
 
 // Twi {{{
@@ -226,6 +234,7 @@ namespace Adc {
 #include "../parts/usart.hh"
 #include "../parts/spi.hh"
 #include "../parts/usb.hh"
+#include "../parts/hscounter.hh"
 
 #endif
 

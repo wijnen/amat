@@ -1,5 +1,5 @@
-#ifndef _AVR_ATMEGA328P
-#define _AVR_ATMEGA328P
+#ifndef _AVR_ATMEGA328
+#define _AVR_ATMEGA328
 
 // Int {{{
 #define INT0_PIN GPIO_MAKE_PIN(PD, 2)
@@ -95,7 +95,6 @@ namespace Adc {
 
 #define OC1A_PIN GPIO_MAKE_PIN(PB, 1)
 #define OC1B_PIN GPIO_MAKE_PIN(PB, 2)
-#define OC1C_PIN 0xff
 #define T1_PIN GPIO_MAKE_PIN(PD, 5)
 #define ICP1_PIN GPIO_MAKE_PIN(PB, 0)
 

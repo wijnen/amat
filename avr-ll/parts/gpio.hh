@@ -53,57 +53,82 @@ void system_clock_interrupt() {
 	// PL exists.
 #	define _AVR_USE_PORTL(...) __VA_ARGS__
 #	define PL 11
-#	ifndef _AVR_LAST_PORT
+#	ifndef GPIO_LAST_PORT
 		// This is the first existing port.
-#		define _AVR_LAST_PORT PL
+#		define GPIO_LAST_PORT PL
 #	endif
 // Make bitmask. {{{
-#ifdef PORTL0
-#define _AVR_PL0 (1 << 0)
-#else
-#define _AVR_PL0 0
-#endif
 
-#ifdef PORTL1
-#define _AVR_PL1 (1 << 1)
-#else
-#define _AVR_PL1 0
+#ifdef PORTL7
+#ifndef GPIO_LAST_PIN
+#define GPIO_LAST_PIN GPIO_MAKE_PIN(PL, 7)
 #endif
-
-#ifdef PORTL2
-#define _AVR_PL2 (1 << 2)
+#define _AVR_PL7 (1 << 7)
 #else
-#define _AVR_PL2 0
-#endif
-
-#ifdef PORTL3
-#define _AVR_PL3 (1 << 3)
-#else
-#define _AVR_PL3 0
-#endif
-
-#ifdef PORTL4
-#define _AVR_PL4 (1 << 4)
-#else
-#define _AVR_PL4 0
-#endif
-
-#ifdef PORTL5
-#define _AVR_PL5 (1 << 5)
-#else
-#define _AVR_PL5 0
+#define _AVR_PL7 0
 #endif
 
 #ifdef PORTL6
+#ifndef GPIO_LAST_PIN
+#define GPIO_LAST_PIN GPIO_MAKE_PIN(PL, 6)
+#endif
 #define _AVR_PL6 (1 << 6)
 #else
 #define _AVR_PL6 0
 #endif
 
-#ifdef PORTL7
-#define _AVR_PL7 (1 << 7)
+#ifdef PORTL5
+#ifndef GPIO_LAST_PIN
+#define GPIO_LAST_PIN GPIO_MAKE_PIN(PL, 5)
+#endif
+#define _AVR_PL5 (1 << 5)
 #else
-#define _AVR_PL7 0
+#define _AVR_PL5 0
+#endif
+
+#ifdef PORTL4
+#ifndef GPIO_LAST_PIN
+#define GPIO_LAST_PIN GPIO_MAKE_PIN(PL, 4)
+#endif
+#define _AVR_PL4 (1 << 4)
+#else
+#define _AVR_PL4 0
+#endif
+
+#ifdef PORTL3
+#ifndef GPIO_LAST_PIN
+#define GPIO_LAST_PIN GPIO_MAKE_PIN(PL, 3)
+#endif
+#define _AVR_PL3 (1 << 3)
+#else
+#define _AVR_PL3 0
+#endif
+
+#ifdef PORTL2
+#ifndef GPIO_LAST_PIN
+#define GPIO_LAST_PIN GPIO_MAKE_PIN(PL, 2)
+#endif
+#define _AVR_PL2 (1 << 2)
+#else
+#define _AVR_PL2 0
+#endif
+
+#ifdef PORTL1
+#ifndef GPIO_LAST_PIN
+#define GPIO_LAST_PIN GPIO_MAKE_PIN(PL, 1)
+#endif
+#define _AVR_PL1 (1 << 1)
+#else
+#define _AVR_PL1 0
+#endif
+
+#ifdef PORTL0
+#ifndef GPIO_LAST_PIN
+#define GPIO_LAST_PIN GPIO_MAKE_PIN(PL, 0)
+#endif
+#define _AVR_PL0 (1 << 0)
+#else
+#define _AVR_PL0 0
 #endif
 
 #define _AVR_GPIO_MASK_PORTL (_AVR_PL0 | _AVR_PL1 | _AVR_PL2 | _AVR_PL3 | _AVR_PL4 | _AVR_PL5 | _AVR_PL6 | _AVR_PL7)
@@ -112,63 +137,89 @@ void system_clock_interrupt() {
 #else
 	// PL does not exist.
 #	define _AVR_USE_PORTL(...)
+#	define _AVR_PIN_COUNT_PORTL 0
 #endif
 
 #ifdef PORTK
 	// PK exists.
 #	define _AVR_USE_PORTK(...) __VA_ARGS__
 #	define PK 10
-#	ifndef _AVR_LAST_PORT
+#	ifndef GPIO_LAST_PORT
 		// This is the first existing port.
-#		define _AVR_LAST_PORT PK
+#		define GPIO_LAST_PORT PK
 #	endif
 // Make bitmask. {{{
-#ifdef PORTK0
-#define _AVR_PK0 (1 << 0)
-#else
-#define _AVR_PK0 0
-#endif
 
-#ifdef PORTK1
-#define _AVR_PK1 (1 << 1)
-#else
-#define _AVR_PK1 0
+#ifdef PORTK7
+#ifndef GPIO_LAST_PIN
+#define GPIO_LAST_PIN GPIO_MAKE_PIN(PK, 7)
 #endif
-
-#ifdef PORTK2
-#define _AVR_PK2 (1 << 2)
+#define _AVR_PK7 (1 << 7)
 #else
-#define _AVR_PK2 0
-#endif
-
-#ifdef PORTK3
-#define _AVR_PK3 (1 << 3)
-#else
-#define _AVR_PK3 0
-#endif
-
-#ifdef PORTK4
-#define _AVR_PK4 (1 << 4)
-#else
-#define _AVR_PK4 0
-#endif
-
-#ifdef PORTK5
-#define _AVR_PK5 (1 << 5)
-#else
-#define _AVR_PK5 0
+#define _AVR_PK7 0
 #endif
 
 #ifdef PORTK6
+#ifndef GPIO_LAST_PIN
+#define GPIO_LAST_PIN GPIO_MAKE_PIN(PK, 6)
+#endif
 #define _AVR_PK6 (1 << 6)
 #else
 #define _AVR_PK6 0
 #endif
 
-#ifdef PORTK7
-#define _AVR_PK7 (1 << 7)
+#ifdef PORTK5
+#ifndef GPIO_LAST_PIN
+#define GPIO_LAST_PIN GPIO_MAKE_PIN(PK, 5)
+#endif
+#define _AVR_PK5 (1 << 5)
 #else
-#define _AVR_PK7 0
+#define _AVR_PK5 0
+#endif
+
+#ifdef PORTK4
+#ifndef GPIO_LAST_PIN
+#define GPIO_LAST_PIN GPIO_MAKE_PIN(PK, 4)
+#endif
+#define _AVR_PK4 (1 << 4)
+#else
+#define _AVR_PK4 0
+#endif
+
+#ifdef PORTK3
+#ifndef GPIO_LAST_PIN
+#define GPIO_LAST_PIN GPIO_MAKE_PIN(PK, 3)
+#endif
+#define _AVR_PK3 (1 << 3)
+#else
+#define _AVR_PK3 0
+#endif
+
+#ifdef PORTK2
+#ifndef GPIO_LAST_PIN
+#define GPIO_LAST_PIN GPIO_MAKE_PIN(PK, 2)
+#endif
+#define _AVR_PK2 (1 << 2)
+#else
+#define _AVR_PK2 0
+#endif
+
+#ifdef PORTK1
+#ifndef GPIO_LAST_PIN
+#define GPIO_LAST_PIN GPIO_MAKE_PIN(PK, 1)
+#endif
+#define _AVR_PK1 (1 << 1)
+#else
+#define _AVR_PK1 0
+#endif
+
+#ifdef PORTK0
+#ifndef GPIO_LAST_PIN
+#define GPIO_LAST_PIN GPIO_MAKE_PIN(PK, 0)
+#endif
+#define _AVR_PK0 (1 << 0)
+#else
+#define _AVR_PK0 0
 #endif
 
 #define _AVR_GPIO_MASK_PORTK (_AVR_PK0 | _AVR_PK1 | _AVR_PK2 | _AVR_PK3 | _AVR_PK4 | _AVR_PK5 | _AVR_PK6 | _AVR_PK7)
@@ -177,63 +228,89 @@ void system_clock_interrupt() {
 #else
 	// PK does not exist.
 #	define _AVR_USE_PORTK(...)
+#	define _AVR_PIN_COUNT_PORTK 0
 #endif
 
 #ifdef PORTJ
 	// PJ exists.
 #	define _AVR_USE_PORTJ(...) __VA_ARGS__
 #	define PJ 9
-#	ifndef _AVR_LAST_PORT
+#	ifndef GPIO_LAST_PORT
 		// This is the first existing port.
-#		define _AVR_LAST_PORT PJ
+#		define GPIO_LAST_PORT PJ
 #	endif
 // Make bitmask. {{{
-#ifdef PORTJ0
-#define _AVR_PJ0 (1 << 0)
-#else
-#define _AVR_PJ0 0
-#endif
 
-#ifdef PORTJ1
-#define _AVR_PJ1 (1 << 1)
-#else
-#define _AVR_PJ1 0
+#ifdef PORTJ7
+#ifndef GPIO_LAST_PIN
+#define GPIO_LAST_PIN GPIO_MAKE_PIN(PJ, 7)
 #endif
-
-#ifdef PORTJ2
-#define _AVR_PJ2 (1 << 2)
+#define _AVR_PJ7 (1 << 7)
 #else
-#define _AVR_PJ2 0
-#endif
-
-#ifdef PORTJ3
-#define _AVR_PJ3 (1 << 3)
-#else
-#define _AVR_PJ3 0
-#endif
-
-#ifdef PORTJ4
-#define _AVR_PJ4 (1 << 4)
-#else
-#define _AVR_PJ4 0
-#endif
-
-#ifdef PORTJ5
-#define _AVR_PJ5 (1 << 5)
-#else
-#define _AVR_PJ5 0
+#define _AVR_PJ7 0
 #endif
 
 #ifdef PORTJ6
+#ifndef GPIO_LAST_PIN
+#define GPIO_LAST_PIN GPIO_MAKE_PIN(PJ, 6)
+#endif
 #define _AVR_PJ6 (1 << 6)
 #else
 #define _AVR_PJ6 0
 #endif
 
-#ifdef PORTJ7
-#define _AVR_PJ7 (1 << 7)
+#ifdef PORTJ5
+#ifndef GPIO_LAST_PIN
+#define GPIO_LAST_PIN GPIO_MAKE_PIN(PJ, 5)
+#endif
+#define _AVR_PJ5 (1 << 5)
 #else
-#define _AVR_PJ7 0
+#define _AVR_PJ5 0
+#endif
+
+#ifdef PORTJ4
+#ifndef GPIO_LAST_PIN
+#define GPIO_LAST_PIN GPIO_MAKE_PIN(PJ, 4)
+#endif
+#define _AVR_PJ4 (1 << 4)
+#else
+#define _AVR_PJ4 0
+#endif
+
+#ifdef PORTJ3
+#ifndef GPIO_LAST_PIN
+#define GPIO_LAST_PIN GPIO_MAKE_PIN(PJ, 3)
+#endif
+#define _AVR_PJ3 (1 << 3)
+#else
+#define _AVR_PJ3 0
+#endif
+
+#ifdef PORTJ2
+#ifndef GPIO_LAST_PIN
+#define GPIO_LAST_PIN GPIO_MAKE_PIN(PJ, 2)
+#endif
+#define _AVR_PJ2 (1 << 2)
+#else
+#define _AVR_PJ2 0
+#endif
+
+#ifdef PORTJ1
+#ifndef GPIO_LAST_PIN
+#define GPIO_LAST_PIN GPIO_MAKE_PIN(PJ, 1)
+#endif
+#define _AVR_PJ1 (1 << 1)
+#else
+#define _AVR_PJ1 0
+#endif
+
+#ifdef PORTJ0
+#ifndef GPIO_LAST_PIN
+#define GPIO_LAST_PIN GPIO_MAKE_PIN(PJ, 0)
+#endif
+#define _AVR_PJ0 (1 << 0)
+#else
+#define _AVR_PJ0 0
 #endif
 
 #define _AVR_GPIO_MASK_PORTJ (_AVR_PJ0 | _AVR_PJ1 | _AVR_PJ2 | _AVR_PJ3 | _AVR_PJ4 | _AVR_PJ5 | _AVR_PJ6 | _AVR_PJ7)
@@ -242,63 +319,89 @@ void system_clock_interrupt() {
 #else
 	// PJ does not exist.
 #	define _AVR_USE_PORTJ(...)
+#	define _AVR_PIN_COUNT_PORTJ 0
 #endif
 
 #ifdef PORTH
 	// PH exists.
 #	define _AVR_USE_PORTH(...) __VA_ARGS__
 #	define PH 7
-#	ifndef _AVR_LAST_PORT
+#	ifndef GPIO_LAST_PORT
 		// This is the first existing port.
-#		define _AVR_LAST_PORT PH
+#		define GPIO_LAST_PORT PH
 #	endif
 // Make bitmask. {{{
-#ifdef PORTH0
-#define _AVR_PH0 (1 << 0)
-#else
-#define _AVR_PH0 0
-#endif
 
-#ifdef PORTH1
-#define _AVR_PH1 (1 << 1)
-#else
-#define _AVR_PH1 0
+#ifdef PORTH7
+#ifndef GPIO_LAST_PIN
+#define GPIO_LAST_PIN GPIO_MAKE_PIN(PH, 7)
 #endif
-
-#ifdef PORTH2
-#define _AVR_PH2 (1 << 2)
+#define _AVR_PH7 (1 << 7)
 #else
-#define _AVR_PH2 0
-#endif
-
-#ifdef PORTH3
-#define _AVR_PH3 (1 << 3)
-#else
-#define _AVR_PH3 0
-#endif
-
-#ifdef PORTH4
-#define _AVR_PH4 (1 << 4)
-#else
-#define _AVR_PH4 0
-#endif
-
-#ifdef PORTH5
-#define _AVR_PH5 (1 << 5)
-#else
-#define _AVR_PH5 0
+#define _AVR_PH7 0
 #endif
 
 #ifdef PORTH6
+#ifndef GPIO_LAST_PIN
+#define GPIO_LAST_PIN GPIO_MAKE_PIN(PH, 6)
+#endif
 #define _AVR_PH6 (1 << 6)
 #else
 #define _AVR_PH6 0
 #endif
 
-#ifdef PORTH7
-#define _AVR_PH7 (1 << 7)
+#ifdef PORTH5
+#ifndef GPIO_LAST_PIN
+#define GPIO_LAST_PIN GPIO_MAKE_PIN(PH, 5)
+#endif
+#define _AVR_PH5 (1 << 5)
 #else
-#define _AVR_PH7 0
+#define _AVR_PH5 0
+#endif
+
+#ifdef PORTH4
+#ifndef GPIO_LAST_PIN
+#define GPIO_LAST_PIN GPIO_MAKE_PIN(PH, 4)
+#endif
+#define _AVR_PH4 (1 << 4)
+#else
+#define _AVR_PH4 0
+#endif
+
+#ifdef PORTH3
+#ifndef GPIO_LAST_PIN
+#define GPIO_LAST_PIN GPIO_MAKE_PIN(PH, 3)
+#endif
+#define _AVR_PH3 (1 << 3)
+#else
+#define _AVR_PH3 0
+#endif
+
+#ifdef PORTH2
+#ifndef GPIO_LAST_PIN
+#define GPIO_LAST_PIN GPIO_MAKE_PIN(PH, 2)
+#endif
+#define _AVR_PH2 (1 << 2)
+#else
+#define _AVR_PH2 0
+#endif
+
+#ifdef PORTH1
+#ifndef GPIO_LAST_PIN
+#define GPIO_LAST_PIN GPIO_MAKE_PIN(PH, 1)
+#endif
+#define _AVR_PH1 (1 << 1)
+#else
+#define _AVR_PH1 0
+#endif
+
+#ifdef PORTH0
+#ifndef GPIO_LAST_PIN
+#define GPIO_LAST_PIN GPIO_MAKE_PIN(PH, 0)
+#endif
+#define _AVR_PH0 (1 << 0)
+#else
+#define _AVR_PH0 0
 #endif
 
 #define _AVR_GPIO_MASK_PORTH (_AVR_PH0 | _AVR_PH1 | _AVR_PH2 | _AVR_PH3 | _AVR_PH4 | _AVR_PH5 | _AVR_PH6 | _AVR_PH7)
@@ -307,63 +410,89 @@ void system_clock_interrupt() {
 #else
 	// PH does not exist.
 #	define _AVR_USE_PORTH(...)
+#	define _AVR_PIN_COUNT_PORTH 0
 #endif
 
 #ifdef PORTG
 	// PG exists.
 #	define _AVR_USE_PORTG(...) __VA_ARGS__
 #	define PG 6
-#	ifndef _AVR_LAST_PORT
+#	ifndef GPIO_LAST_PORT
 		// This is the first existing port.
-#		define _AVR_LAST_PORT PG
+#		define GPIO_LAST_PORT PG
 #	endif
 // Make bitmask. {{{
-#ifdef PORTG0
-#define _AVR_PG0 (1 << 0)
-#else
-#define _AVR_PG0 0
-#endif
 
-#ifdef PORTG1
-#define _AVR_PG1 (1 << 1)
-#else
-#define _AVR_PG1 0
+#ifdef PORTG7
+#ifndef GPIO_LAST_PIN
+#define GPIO_LAST_PIN GPIO_MAKE_PIN(PG, 7)
 #endif
-
-#ifdef PORTG2
-#define _AVR_PG2 (1 << 2)
+#define _AVR_PG7 (1 << 7)
 #else
-#define _AVR_PG2 0
-#endif
-
-#ifdef PORTG3
-#define _AVR_PG3 (1 << 3)
-#else
-#define _AVR_PG3 0
-#endif
-
-#ifdef PORTG4
-#define _AVR_PG4 (1 << 4)
-#else
-#define _AVR_PG4 0
-#endif
-
-#ifdef PORTG5
-#define _AVR_PG5 (1 << 5)
-#else
-#define _AVR_PG5 0
+#define _AVR_PG7 0
 #endif
 
 #ifdef PORTG6
+#ifndef GPIO_LAST_PIN
+#define GPIO_LAST_PIN GPIO_MAKE_PIN(PG, 6)
+#endif
 #define _AVR_PG6 (1 << 6)
 #else
 #define _AVR_PG6 0
 #endif
 
-#ifdef PORTG7
-#define _AVR_PG7 (1 << 7)
+#ifdef PORTG5
+#ifndef GPIO_LAST_PIN
+#define GPIO_LAST_PIN GPIO_MAKE_PIN(PG, 5)
+#endif
+#define _AVR_PG5 (1 << 5)
 #else
-#define _AVR_PG7 0
+#define _AVR_PG5 0
+#endif
+
+#ifdef PORTG4
+#ifndef GPIO_LAST_PIN
+#define GPIO_LAST_PIN GPIO_MAKE_PIN(PG, 4)
+#endif
+#define _AVR_PG4 (1 << 4)
+#else
+#define _AVR_PG4 0
+#endif
+
+#ifdef PORTG3
+#ifndef GPIO_LAST_PIN
+#define GPIO_LAST_PIN GPIO_MAKE_PIN(PG, 3)
+#endif
+#define _AVR_PG3 (1 << 3)
+#else
+#define _AVR_PG3 0
+#endif
+
+#ifdef PORTG2
+#ifndef GPIO_LAST_PIN
+#define GPIO_LAST_PIN GPIO_MAKE_PIN(PG, 2)
+#endif
+#define _AVR_PG2 (1 << 2)
+#else
+#define _AVR_PG2 0
+#endif
+
+#ifdef PORTG1
+#ifndef GPIO_LAST_PIN
+#define GPIO_LAST_PIN GPIO_MAKE_PIN(PG, 1)
+#endif
+#define _AVR_PG1 (1 << 1)
+#else
+#define _AVR_PG1 0
+#endif
+
+#ifdef PORTG0
+#ifndef GPIO_LAST_PIN
+#define GPIO_LAST_PIN GPIO_MAKE_PIN(PG, 0)
+#endif
+#define _AVR_PG0 (1 << 0)
+#else
+#define _AVR_PG0 0
 #endif
 
 #define _AVR_GPIO_MASK_PORTG (_AVR_PG0 | _AVR_PG1 | _AVR_PG2 | _AVR_PG3 | _AVR_PG4 | _AVR_PG5 | _AVR_PG6 | _AVR_PG7)
@@ -372,63 +501,89 @@ void system_clock_interrupt() {
 #else
 	// PG does not exist.
 #	define _AVR_USE_PORTG(...)
+#	define _AVR_PIN_COUNT_PORTG 0
 #endif
 
 #ifdef PORTF
 	// PF exists.
 #	define _AVR_USE_PORTF(...) __VA_ARGS__
 #	define PF 5
-#	ifndef _AVR_LAST_PORT
+#	ifndef GPIO_LAST_PORT
 		// This is the first existing port.
-#		define _AVR_LAST_PORT PF
+#		define GPIO_LAST_PORT PF
 #	endif
 // Make bitmask. {{{
-#ifdef PORTF0
-#define _AVR_PF0 (1 << 0)
-#else
-#define _AVR_PF0 0
-#endif
 
-#ifdef PORTF1
-#define _AVR_PF1 (1 << 1)
-#else
-#define _AVR_PF1 0
+#ifdef PORTF7
+#ifndef GPIO_LAST_PIN
+#define GPIO_LAST_PIN GPIO_MAKE_PIN(PF, 7)
 #endif
-
-#ifdef PORTF2
-#define _AVR_PF2 (1 << 2)
+#define _AVR_PF7 (1 << 7)
 #else
-#define _AVR_PF2 0
-#endif
-
-#ifdef PORTF3
-#define _AVR_PF3 (1 << 3)
-#else
-#define _AVR_PF3 0
-#endif
-
-#ifdef PORTF4
-#define _AVR_PF4 (1 << 4)
-#else
-#define _AVR_PF4 0
-#endif
-
-#ifdef PORTF5
-#define _AVR_PF5 (1 << 5)
-#else
-#define _AVR_PF5 0
+#define _AVR_PF7 0
 #endif
 
 #ifdef PORTF6
+#ifndef GPIO_LAST_PIN
+#define GPIO_LAST_PIN GPIO_MAKE_PIN(PF, 6)
+#endif
 #define _AVR_PF6 (1 << 6)
 #else
 #define _AVR_PF6 0
 #endif
 
-#ifdef PORTF7
-#define _AVR_PF7 (1 << 7)
+#ifdef PORTF5
+#ifndef GPIO_LAST_PIN
+#define GPIO_LAST_PIN GPIO_MAKE_PIN(PF, 5)
+#endif
+#define _AVR_PF5 (1 << 5)
 #else
-#define _AVR_PF7 0
+#define _AVR_PF5 0
+#endif
+
+#ifdef PORTF4
+#ifndef GPIO_LAST_PIN
+#define GPIO_LAST_PIN GPIO_MAKE_PIN(PF, 4)
+#endif
+#define _AVR_PF4 (1 << 4)
+#else
+#define _AVR_PF4 0
+#endif
+
+#ifdef PORTF3
+#ifndef GPIO_LAST_PIN
+#define GPIO_LAST_PIN GPIO_MAKE_PIN(PF, 3)
+#endif
+#define _AVR_PF3 (1 << 3)
+#else
+#define _AVR_PF3 0
+#endif
+
+#ifdef PORTF2
+#ifndef GPIO_LAST_PIN
+#define GPIO_LAST_PIN GPIO_MAKE_PIN(PF, 2)
+#endif
+#define _AVR_PF2 (1 << 2)
+#else
+#define _AVR_PF2 0
+#endif
+
+#ifdef PORTF1
+#ifndef GPIO_LAST_PIN
+#define GPIO_LAST_PIN GPIO_MAKE_PIN(PF, 1)
+#endif
+#define _AVR_PF1 (1 << 1)
+#else
+#define _AVR_PF1 0
+#endif
+
+#ifdef PORTF0
+#ifndef GPIO_LAST_PIN
+#define GPIO_LAST_PIN GPIO_MAKE_PIN(PF, 0)
+#endif
+#define _AVR_PF0 (1 << 0)
+#else
+#define _AVR_PF0 0
 #endif
 
 #define _AVR_GPIO_MASK_PORTF (_AVR_PF0 | _AVR_PF1 | _AVR_PF2 | _AVR_PF3 | _AVR_PF4 | _AVR_PF5 | _AVR_PF6 | _AVR_PF7)
@@ -437,63 +592,89 @@ void system_clock_interrupt() {
 #else
 	// PF does not exist.
 #	define _AVR_USE_PORTF(...)
+#	define _AVR_PIN_COUNT_PORTF 0
 #endif
 
 #ifdef PORTE
 	// PE exists.
 #	define _AVR_USE_PORTE(...) __VA_ARGS__
 #	define PE 4
-#	ifndef _AVR_LAST_PORT
+#	ifndef GPIO_LAST_PORT
 		// This is the first existing port.
-#		define _AVR_LAST_PORT PE
+#		define GPIO_LAST_PORT PE
 #	endif
 // Make bitmask. {{{
-#ifdef PORTE0
-#define _AVR_PE0 (1 << 0)
-#else
-#define _AVR_PE0 0
-#endif
 
-#ifdef PORTE1
-#define _AVR_PE1 (1 << 1)
-#else
-#define _AVR_PE1 0
+#ifdef PORTE7
+#ifndef GPIO_LAST_PIN
+#define GPIO_LAST_PIN GPIO_MAKE_PIN(PE, 7)
 #endif
-
-#ifdef PORTE2
-#define _AVR_PE2 (1 << 2)
+#define _AVR_PE7 (1 << 7)
 #else
-#define _AVR_PE2 0
-#endif
-
-#ifdef PORTE3
-#define _AVR_PE3 (1 << 3)
-#else
-#define _AVR_PE3 0
-#endif
-
-#ifdef PORTE4
-#define _AVR_PE4 (1 << 4)
-#else
-#define _AVR_PE4 0
-#endif
-
-#ifdef PORTE5
-#define _AVR_PE5 (1 << 5)
-#else
-#define _AVR_PE5 0
+#define _AVR_PE7 0
 #endif
 
 #ifdef PORTE6
+#ifndef GPIO_LAST_PIN
+#define GPIO_LAST_PIN GPIO_MAKE_PIN(PE, 6)
+#endif
 #define _AVR_PE6 (1 << 6)
 #else
 #define _AVR_PE6 0
 #endif
 
-#ifdef PORTE7
-#define _AVR_PE7 (1 << 7)
+#ifdef PORTE5
+#ifndef GPIO_LAST_PIN
+#define GPIO_LAST_PIN GPIO_MAKE_PIN(PE, 5)
+#endif
+#define _AVR_PE5 (1 << 5)
 #else
-#define _AVR_PE7 0
+#define _AVR_PE5 0
+#endif
+
+#ifdef PORTE4
+#ifndef GPIO_LAST_PIN
+#define GPIO_LAST_PIN GPIO_MAKE_PIN(PE, 4)
+#endif
+#define _AVR_PE4 (1 << 4)
+#else
+#define _AVR_PE4 0
+#endif
+
+#ifdef PORTE3
+#ifndef GPIO_LAST_PIN
+#define GPIO_LAST_PIN GPIO_MAKE_PIN(PE, 3)
+#endif
+#define _AVR_PE3 (1 << 3)
+#else
+#define _AVR_PE3 0
+#endif
+
+#ifdef PORTE2
+#ifndef GPIO_LAST_PIN
+#define GPIO_LAST_PIN GPIO_MAKE_PIN(PE, 2)
+#endif
+#define _AVR_PE2 (1 << 2)
+#else
+#define _AVR_PE2 0
+#endif
+
+#ifdef PORTE1
+#ifndef GPIO_LAST_PIN
+#define GPIO_LAST_PIN GPIO_MAKE_PIN(PE, 1)
+#endif
+#define _AVR_PE1 (1 << 1)
+#else
+#define _AVR_PE1 0
+#endif
+
+#ifdef PORTE0
+#ifndef GPIO_LAST_PIN
+#define GPIO_LAST_PIN GPIO_MAKE_PIN(PE, 0)
+#endif
+#define _AVR_PE0 (1 << 0)
+#else
+#define _AVR_PE0 0
 #endif
 
 #define _AVR_GPIO_MASK_PORTE (_AVR_PE0 | _AVR_PE1 | _AVR_PE2 | _AVR_PE3 | _AVR_PE4 | _AVR_PE5 | _AVR_PE6 | _AVR_PE7)
@@ -502,63 +683,89 @@ void system_clock_interrupt() {
 #else
 	// PE does not exist.
 #	define _AVR_USE_PORTE(...)
+#	define _AVR_PIN_COUNT_PORTE 0
 #endif
 
 #ifdef PORTD
 	// PD exists.
 #	define _AVR_USE_PORTD(...) __VA_ARGS__
 #	define PD 3
-#	ifndef _AVR_LAST_PORT
+#	ifndef GPIO_LAST_PORT
 		// This is the first existing port.
-#		define _AVR_LAST_PORT PD
+#		define GPIO_LAST_PORT PD
 #	endif
 // Make bitmask. {{{
-#ifdef PORTD0
-#define _AVR_PD0 (1 << 0)
-#else
-#define _AVR_PD0 0
-#endif
 
-#ifdef PORTD1
-#define _AVR_PD1 (1 << 1)
-#else
-#define _AVR_PD1 0
+#ifdef PORTD7
+#ifndef GPIO_LAST_PIN
+#define GPIO_LAST_PIN GPIO_MAKE_PIN(PD, 7)
 #endif
-
-#ifdef PORTD2
-#define _AVR_PD2 (1 << 2)
+#define _AVR_PD7 (1 << 7)
 #else
-#define _AVR_PD2 0
-#endif
-
-#ifdef PORTD3
-#define _AVR_PD3 (1 << 3)
-#else
-#define _AVR_PD3 0
-#endif
-
-#ifdef PORTD4
-#define _AVR_PD4 (1 << 4)
-#else
-#define _AVR_PD4 0
-#endif
-
-#ifdef PORTD5
-#define _AVR_PD5 (1 << 5)
-#else
-#define _AVR_PD5 0
+#define _AVR_PD7 0
 #endif
 
 #ifdef PORTD6
+#ifndef GPIO_LAST_PIN
+#define GPIO_LAST_PIN GPIO_MAKE_PIN(PD, 6)
+#endif
 #define _AVR_PD6 (1 << 6)
 #else
 #define _AVR_PD6 0
 #endif
 
-#ifdef PORTD7
-#define _AVR_PD7 (1 << 7)
+#ifdef PORTD5
+#ifndef GPIO_LAST_PIN
+#define GPIO_LAST_PIN GPIO_MAKE_PIN(PD, 5)
+#endif
+#define _AVR_PD5 (1 << 5)
 #else
-#define _AVR_PD7 0
+#define _AVR_PD5 0
+#endif
+
+#ifdef PORTD4
+#ifndef GPIO_LAST_PIN
+#define GPIO_LAST_PIN GPIO_MAKE_PIN(PD, 4)
+#endif
+#define _AVR_PD4 (1 << 4)
+#else
+#define _AVR_PD4 0
+#endif
+
+#ifdef PORTD3
+#ifndef GPIO_LAST_PIN
+#define GPIO_LAST_PIN GPIO_MAKE_PIN(PD, 3)
+#endif
+#define _AVR_PD3 (1 << 3)
+#else
+#define _AVR_PD3 0
+#endif
+
+#ifdef PORTD2
+#ifndef GPIO_LAST_PIN
+#define GPIO_LAST_PIN GPIO_MAKE_PIN(PD, 2)
+#endif
+#define _AVR_PD2 (1 << 2)
+#else
+#define _AVR_PD2 0
+#endif
+
+#ifdef PORTD1
+#ifndef GPIO_LAST_PIN
+#define GPIO_LAST_PIN GPIO_MAKE_PIN(PD, 1)
+#endif
+#define _AVR_PD1 (1 << 1)
+#else
+#define _AVR_PD1 0
+#endif
+
+#ifdef PORTD0
+#ifndef GPIO_LAST_PIN
+#define GPIO_LAST_PIN GPIO_MAKE_PIN(PD, 0)
+#endif
+#define _AVR_PD0 (1 << 0)
+#else
+#define _AVR_PD0 0
 #endif
 
 #define _AVR_GPIO_MASK_PORTD (_AVR_PD0 | _AVR_PD1 | _AVR_PD2 | _AVR_PD3 | _AVR_PD4 | _AVR_PD5 | _AVR_PD6 | _AVR_PD7)
@@ -567,63 +774,89 @@ void system_clock_interrupt() {
 #else
 	// PD does not exist.
 #	define _AVR_USE_PORTD(...)
+#	define _AVR_PIN_COUNT_PORTD 0
 #endif
 
 #ifdef PORTC
 	// PC exists.
 #	define _AVR_USE_PORTC(...) __VA_ARGS__
 #	define PC 2
-#	ifndef _AVR_LAST_PORT
+#	ifndef GPIO_LAST_PORT
 		// This is the first existing port.
-#		define _AVR_LAST_PORT PC
+#		define GPIO_LAST_PORT PC
 #	endif
 // Make bitmask. {{{
-#ifdef PORTC0
-#define _AVR_PC0 (1 << 0)
-#else
-#define _AVR_PC0 0
-#endif
 
-#ifdef PORTC1
-#define _AVR_PC1 (1 << 1)
-#else
-#define _AVR_PC1 0
+#ifdef PORTC7
+#ifndef GPIO_LAST_PIN
+#define GPIO_LAST_PIN GPIO_MAKE_PIN(PC, 7)
 #endif
-
-#ifdef PORTC2
-#define _AVR_PC2 (1 << 2)
+#define _AVR_PC7 (1 << 7)
 #else
-#define _AVR_PC2 0
-#endif
-
-#ifdef PORTC3
-#define _AVR_PC3 (1 << 3)
-#else
-#define _AVR_PC3 0
-#endif
-
-#ifdef PORTC4
-#define _AVR_PC4 (1 << 4)
-#else
-#define _AVR_PC4 0
-#endif
-
-#ifdef PORTC5
-#define _AVR_PC5 (1 << 5)
-#else
-#define _AVR_PC5 0
+#define _AVR_PC7 0
 #endif
 
 #ifdef PORTC6
+#ifndef GPIO_LAST_PIN
+#define GPIO_LAST_PIN GPIO_MAKE_PIN(PC, 6)
+#endif
 #define _AVR_PC6 (1 << 6)
 #else
 #define _AVR_PC6 0
 #endif
 
-#ifdef PORTC7
-#define _AVR_PC7 (1 << 7)
+#ifdef PORTC5
+#ifndef GPIO_LAST_PIN
+#define GPIO_LAST_PIN GPIO_MAKE_PIN(PC, 5)
+#endif
+#define _AVR_PC5 (1 << 5)
 #else
-#define _AVR_PC7 0
+#define _AVR_PC5 0
+#endif
+
+#ifdef PORTC4
+#ifndef GPIO_LAST_PIN
+#define GPIO_LAST_PIN GPIO_MAKE_PIN(PC, 4)
+#endif
+#define _AVR_PC4 (1 << 4)
+#else
+#define _AVR_PC4 0
+#endif
+
+#ifdef PORTC3
+#ifndef GPIO_LAST_PIN
+#define GPIO_LAST_PIN GPIO_MAKE_PIN(PC, 3)
+#endif
+#define _AVR_PC3 (1 << 3)
+#else
+#define _AVR_PC3 0
+#endif
+
+#ifdef PORTC2
+#ifndef GPIO_LAST_PIN
+#define GPIO_LAST_PIN GPIO_MAKE_PIN(PC, 2)
+#endif
+#define _AVR_PC2 (1 << 2)
+#else
+#define _AVR_PC2 0
+#endif
+
+#ifdef PORTC1
+#ifndef GPIO_LAST_PIN
+#define GPIO_LAST_PIN GPIO_MAKE_PIN(PC, 1)
+#endif
+#define _AVR_PC1 (1 << 1)
+#else
+#define _AVR_PC1 0
+#endif
+
+#ifdef PORTC0
+#ifndef GPIO_LAST_PIN
+#define GPIO_LAST_PIN GPIO_MAKE_PIN(PC, 0)
+#endif
+#define _AVR_PC0 (1 << 0)
+#else
+#define _AVR_PC0 0
 #endif
 
 #define _AVR_GPIO_MASK_PORTC (_AVR_PC0 | _AVR_PC1 | _AVR_PC2 | _AVR_PC3 | _AVR_PC4 | _AVR_PC5 | _AVR_PC6 | _AVR_PC7)
@@ -632,63 +865,89 @@ void system_clock_interrupt() {
 #else
 	// PC does not exist.
 #	define _AVR_USE_PORTC(...)
+#	define _AVR_PIN_COUNT_PORTC 0
 #endif
 
 #ifdef PORTB
 	// PB exists.
 #	define _AVR_USE_PORTB(...) __VA_ARGS__
 #	define PB 1
-#	ifndef _AVR_LAST_PORT
+#	ifndef GPIO_LAST_PORT
 		// This is the first existing port.
-#		define _AVR_LAST_PORT PB
+#		define GPIO_LAST_PORT PB
 #	endif
 // Make bitmask. {{{
-#ifdef PORTB0
-#define _AVR_PB0 (1 << 0)
-#else
-#define _AVR_PB0 0
-#endif
 
-#ifdef PORTB1
-#define _AVR_PB1 (1 << 1)
-#else
-#define _AVR_PB1 0
+#ifdef PORTB7
+#ifndef GPIO_LAST_PIN
+#define GPIO_LAST_PIN GPIO_MAKE_PIN(PB, 7)
 #endif
-
-#ifdef PORTB2
-#define _AVR_PB2 (1 << 2)
+#define _AVR_PB7 (1 << 7)
 #else
-#define _AVR_PB2 0
-#endif
-
-#ifdef PORTB3
-#define _AVR_PB3 (1 << 3)
-#else
-#define _AVR_PB3 0
-#endif
-
-#ifdef PORTB4
-#define _AVR_PB4 (1 << 4)
-#else
-#define _AVR_PB4 0
-#endif
-
-#ifdef PORTB5
-#define _AVR_PB5 (1 << 5)
-#else
-#define _AVR_PB5 0
+#define _AVR_PB7 0
 #endif
 
 #ifdef PORTB6
+#ifndef GPIO_LAST_PIN
+#define GPIO_LAST_PIN GPIO_MAKE_PIN(PB, 6)
+#endif
 #define _AVR_PB6 (1 << 6)
 #else
 #define _AVR_PB6 0
 #endif
 
-#ifdef PORTB7
-#define _AVR_PB7 (1 << 7)
+#ifdef PORTB5
+#ifndef GPIO_LAST_PIN
+#define GPIO_LAST_PIN GPIO_MAKE_PIN(PB, 5)
+#endif
+#define _AVR_PB5 (1 << 5)
 #else
-#define _AVR_PB7 0
+#define _AVR_PB5 0
+#endif
+
+#ifdef PORTB4
+#ifndef GPIO_LAST_PIN
+#define GPIO_LAST_PIN GPIO_MAKE_PIN(PB, 4)
+#endif
+#define _AVR_PB4 (1 << 4)
+#else
+#define _AVR_PB4 0
+#endif
+
+#ifdef PORTB3
+#ifndef GPIO_LAST_PIN
+#define GPIO_LAST_PIN GPIO_MAKE_PIN(PB, 3)
+#endif
+#define _AVR_PB3 (1 << 3)
+#else
+#define _AVR_PB3 0
+#endif
+
+#ifdef PORTB2
+#ifndef GPIO_LAST_PIN
+#define GPIO_LAST_PIN GPIO_MAKE_PIN(PB, 2)
+#endif
+#define _AVR_PB2 (1 << 2)
+#else
+#define _AVR_PB2 0
+#endif
+
+#ifdef PORTB1
+#ifndef GPIO_LAST_PIN
+#define GPIO_LAST_PIN GPIO_MAKE_PIN(PB, 1)
+#endif
+#define _AVR_PB1 (1 << 1)
+#else
+#define _AVR_PB1 0
+#endif
+
+#ifdef PORTB0
+#ifndef GPIO_LAST_PIN
+#define GPIO_LAST_PIN GPIO_MAKE_PIN(PB, 0)
+#endif
+#define _AVR_PB0 (1 << 0)
+#else
+#define _AVR_PB0 0
 #endif
 
 #define _AVR_GPIO_MASK_PORTB (_AVR_PB0 | _AVR_PB1 | _AVR_PB2 | _AVR_PB3 | _AVR_PB4 | _AVR_PB5 | _AVR_PB6 | _AVR_PB7)
@@ -697,63 +956,89 @@ void system_clock_interrupt() {
 #else
 	// PB does not exist.
 #	define _AVR_USE_PORTB(...)
+#	define _AVR_PIN_COUNT_PORTB 0
 #endif
 
 #ifdef PORTA
 	// PA exists.
 #	define _AVR_USE_PORTA(...) __VA_ARGS__
 #	define PA 0
-#	ifndef _AVR_LAST_PORT
+#	ifndef GPIO_LAST_PORT
 		// This is the first existing port.
-#		define _AVR_LAST_PORT PA
+#		define GPIO_LAST_PORT PA
 #	endif
 // Make bitmask. {{{
-#ifdef PORTA0
-#define _AVR_PA0 (1 << 0)
-#else
-#define _AVR_PA0 0
-#endif
 
-#ifdef PORTA1
-#define _AVR_PA1 (1 << 1)
-#else
-#define _AVR_PA1 0
+#ifdef PORTA7
+#ifndef GPIO_LAST_PIN
+#define GPIO_LAST_PIN GPIO_MAKE_PIN(PA, 7)
 #endif
-
-#ifdef PORTA2
-#define _AVR_PA2 (1 << 2)
+#define _AVR_PA7 (1 << 7)
 #else
-#define _AVR_PA2 0
-#endif
-
-#ifdef PORTA3
-#define _AVR_PA3 (1 << 3)
-#else
-#define _AVR_PA3 0
-#endif
-
-#ifdef PORTA4
-#define _AVR_PA4 (1 << 4)
-#else
-#define _AVR_PA4 0
-#endif
-
-#ifdef PORTA5
-#define _AVR_PA5 (1 << 5)
-#else
-#define _AVR_PA5 0
+#define _AVR_PA7 0
 #endif
 
 #ifdef PORTA6
+#ifndef GPIO_LAST_PIN
+#define GPIO_LAST_PIN GPIO_MAKE_PIN(PA, 6)
+#endif
 #define _AVR_PA6 (1 << 6)
 #else
 #define _AVR_PA6 0
 #endif
 
-#ifdef PORTA7
-#define _AVR_PA7 (1 << 7)
+#ifdef PORTA5
+#ifndef GPIO_LAST_PIN
+#define GPIO_LAST_PIN GPIO_MAKE_PIN(PA, 5)
+#endif
+#define _AVR_PA5 (1 << 5)
 #else
-#define _AVR_PA7 0
+#define _AVR_PA5 0
+#endif
+
+#ifdef PORTA4
+#ifndef GPIO_LAST_PIN
+#define GPIO_LAST_PIN GPIO_MAKE_PIN(PA, 4)
+#endif
+#define _AVR_PA4 (1 << 4)
+#else
+#define _AVR_PA4 0
+#endif
+
+#ifdef PORTA3
+#ifndef GPIO_LAST_PIN
+#define GPIO_LAST_PIN GPIO_MAKE_PIN(PA, 3)
+#endif
+#define _AVR_PA3 (1 << 3)
+#else
+#define _AVR_PA3 0
+#endif
+
+#ifdef PORTA2
+#ifndef GPIO_LAST_PIN
+#define GPIO_LAST_PIN GPIO_MAKE_PIN(PA, 2)
+#endif
+#define _AVR_PA2 (1 << 2)
+#else
+#define _AVR_PA2 0
+#endif
+
+#ifdef PORTA1
+#ifndef GPIO_LAST_PIN
+#define GPIO_LAST_PIN GPIO_MAKE_PIN(PA, 1)
+#endif
+#define _AVR_PA1 (1 << 1)
+#else
+#define _AVR_PA1 0
+#endif
+
+#ifdef PORTA0
+#ifndef GPIO_LAST_PIN
+#define GPIO_LAST_PIN GPIO_MAKE_PIN(PA, 0)
+#endif
+#define _AVR_PA0 (1 << 0)
+#else
+#define _AVR_PA0 0
 #endif
 
 #define _AVR_GPIO_MASK_PORTA (_AVR_PA0 | _AVR_PA1 | _AVR_PA2 | _AVR_PA3 | _AVR_PA4 | _AVR_PA5 | _AVR_PA6 | _AVR_PA7)
@@ -762,8 +1047,18 @@ void system_clock_interrupt() {
 #else
 	// PA does not exist.
 #	define _AVR_USE_PORTA(...)
+#	define _AVR_PIN_COUNT_PORTA 0
 #endif
-#define NUM_DIGITAL_PINS (_AVR_PINT_COUNT_PORTA + _AVR_PINT_COUNT_PORTB + _AVR_PINT_COUNT_PORTC + _AVR_PINT_COUNT_PORTD + _AVR_PINT_COUNT_PORTE + _AVR_PINT_COUNT_PORTF + _AVR_PINT_COUNT_PORTG + _AVR_PINT_COUNT_PORTH + _AVR_PINT_COUNT_PORTJ + _AVR_PINT_COUNT_PORTK + _AVR_PINT_COUNT_PORTL)
+
+#ifdef PORTA0
+#define GPIO_FIRST_PIN 0
+#elif defined PORTB0
+#define GPIO_FIRST_PIN (1 << 3)
+#else
+#error "Neither port A nor port B is present"
+#endif
+
+#define GPIO_NUM_PINS (_AVR_PIN_COUNT_PORTA + _AVR_PIN_COUNT_PORTB + _AVR_PIN_COUNT_PORTC + _AVR_PIN_COUNT_PORTD + _AVR_PIN_COUNT_PORTE + _AVR_PIN_COUNT_PORTF + _AVR_PIN_COUNT_PORTG + _AVR_PIN_COUNT_PORTH + _AVR_PIN_COUNT_PORTJ + _AVR_PIN_COUNT_PORTK + _AVR_PIN_COUNT_PORTL)
 
 #define _AVR_PORTREG(OLD, NEW, MOD, REF, DEF) \
 	static inline MOD uint8_t REF NEW(uint8_t port) { \

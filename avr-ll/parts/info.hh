@@ -1,8 +1,9 @@
 // Define pin names.
 
 // Options:
+// INFO_ENABLE
 // INFO_ENABLE_NAMES
-// INFO_ENABLE_DIGITAL
+// INFO_ENABLE_GPIO
 // INFO_ENABLE_INT
 // INFO_ENABLE_PCINT
 // INFO_ENABLE_COUNTER_OC
@@ -75,7 +76,7 @@ void setup() {
 /// @{
 
 /// Define this macro to include information about Gpio pins.
-#define INFO_ENABLE_DIGITAL
+#define INFO_ENABLE_GPIO
 
 /// Define this macro to include information about external interrupt (Int) pins.
 #define INFO_ENABLE_INT
@@ -203,7 +204,7 @@ void setup() {
 #ifdef INFO_ENABLE_ALL
 #define INFO_ENABLE
 #define INFO_ENABLE_NAMES
-#define INFO_ENABLE_DIGITAL
+#define INFO_ENABLE_GPIO
 #define INFO_ENABLE_INT
 #define INFO_ENABLE_PCINT
 #define INFO_ENABLE_USART
@@ -245,7 +246,7 @@ namespace Info {
 	/// Pin types returned by get_type().
 	enum Type { // {{{
 		/// Digital pin (Gpio)
-		PT_DIGITAL	= 0x00,
+		PT_GPIO		= 0x00,
 		/// Pin change interrupt (Pcint)
 		PT_PCINT	= 0x01,
 		/// External interrupt (Int)
@@ -351,7 +352,7 @@ namespace Info {
 
 	// Digital pins. {{{
 	static uint8_t const last_digital_pin = 0x5f;
-#ifdef INFO_ENABLE_DIGITAL
+#ifdef INFO_ENABLE_GPIO
 	static inline uint8_t next_digital_port(uint8_t port) {  // {{{
 		// Internal function: find first port that is not smaller than port.
 		// Return port if found, 0xff if not.
@@ -403,14 +404,14 @@ namespace Info {
 		return buffer;
 	} // }}}
 #endif
-	static inline Type get_digital_pin_type(uint8_t pin) { (void)&pin; return PT_DIGITAL; }
+	static inline Type get_digital_pin_type(uint8_t pin) { (void)&pin; return PT_GPIO; }
 #else
 	static inline uint8_t first_digital_pin() { return 0xff; }
 	static inline uint8_t next_digital_pin(uint8_t pin) { (void)&pin; return 0xff; }
 #ifdef INFO_ENABLE_NAMES
 	static inline char *get_digital_pin_name(uint8_t pin) { (void)&pin; return nullptr; }
 #endif
-	static inline Type get_digital_pin_type(uint8_t pin) { (void)&pin; return PT_DIGITAL; }
+	static inline Type get_digital_pin_type(uint8_t pin) { (void)&pin; return PT_GPIO; }
 	static inline uint8_t get_digital_pin_id(uint8_t pin) { return pin; }
 #endif
 	// }}}
@@ -577,8 +578,8 @@ namespace Info {
 #else
 	static inline uint8_t first_usart_pin() { return 0xff; }
 	static inline uint8_t get_usart_pin_id(uint8_t pin) {
-		uint8_t const ids[] = _AVR_USART_ID;
-		return ids[(pin - first_uart_pin()) >> 1] + (pin & 1);
+		uint8_t const ids[] = _AVR_USART_IDS;
+		return ids[(pin - first_usart_pin()) >> 1] + (pin & 1);
 	}
 	static inline uint8_t next_usart_pin(uint8_t pin) { (void)&pin; return 0xff; }
 #ifdef INFO_ENABLE_NAMES
@@ -742,9 +743,17 @@ namespace Info {
 	static const uint8_t _AVR_COUNTER1_ID[] PROGMEM = {
 		OC1A_PIN,
 		OC1B_PIN,
+#ifdef OC1C_PIN
 		OC1C_PIN,
+#else
 		0xff,
+#endif
+		0xff,
+#ifdef T1_PIN
 		T1_PIN,
+#else
+		0xff,
+#endif
 		ICP1_PIN
 	};
 	static inline uint8_t first_counter1_pin() {
@@ -905,19 +914,29 @@ namespace Info {
 	// Counter 3, 4, 5. {{{
 	static uint8_t const last_counter3_pin = 0xdf;
 #if defined(_AVR_COUNTER1_HH) && defined(TCNT3L) && (defined(INFO_ENABLE_COUNTER_OC) || defined(INFO_ENABLE_COUNTER_T) || defined(INFO_ENABLE_COUNTER_ICP))
+#ifdef OC3C_PIN
+#define AVR_OC3C_PIN OC3C_PIN
+#else
+#define AVR_OC3C_PIN 0xff
+#endif
 #define _AVR_COUNTER3_ID3 \
 	OC3A_PIN, \
 	OC3B_PIN, \
-	OC3C_PIN, \
+	AVR_OC3C_PIN, \
 	0xff, \
 	T3_PIN, \
 	ICP3_PIN
 #if defined(TCNT4L) && !defined(TCCR4E)
+#ifdef OC4C_PIN
+#define AVR_OC4C_PIN OC4C_PIN
+#else
+#define AVR_OC4C_PIN 0xff
+#endif
 #define _AVR_COUNTER3_ID4 \
 	, 0xff, 0xff, \
 	OC4A_PIN, \
 	OC4B_PIN, \
-	OC4C_PIN, \
+	AVR_OC4C_PIN, \
 	0xff, \
 	T4_PIN, \
 	ICP4_PIN
@@ -925,11 +944,16 @@ namespace Info {
 #define _AVR_COUNTER3_ID4
 #endif
 #ifdef TCNT5L
+#ifdef OC5C_PIN
+#define AVR_OC5C_PIN OC5C_PIN
+#else
+#define AVR_OC5C_PIN 0xff
+#endif
 #define _AVR_COUNTER3_ID5 \
 	, 0xff, 0xff, \
 	OC5A_PIN, \
 	OC5B_PIN, \
-	OC5C_PIN, \
+	AVR_OC5C_PIN, \
 	0xff, \
 	T5_PIN, \
 	ICP5_PIN
