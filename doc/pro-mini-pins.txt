@@ -1,0 +1,47 @@
+gpio	pcint	timer	serial	analog	other	arduino
+
+PB0	pcint0	icp1			clko	8
+PB1	pcint1	oc1a				9
+PB2	pcint2	oc1b	ss			10
+PB3	pcint3	oc2a	mosi			11
+PB4	pcint4		miso			12
+PB5	pcint5		sck			13
+PB6	pcint6				xtal1/tosc1
+PB7	pcint7				xtal2/tosc2
+
+PC0	pcint8			adc0		A0
+PC1	pcint9			adc1		A1
+PC2	pcint10			adc2		A2
+PC3	pcint11			adc3		A3
+PC4	pcint12		sda	adc4		A4
+PC5	pcint13		scl	adc5		A5
+PC6	pcint14				reset
+
+PD0	pcint16		rxd			0
+PD1	pcint17		txd			1
+PD2	pcint18				int0	2
+PD3	pcint19	oc2b			int1	3
+PD4	pcint20	t0	xck			4
+PD5	pcint21	t1/oc0b				5
+PD6	pcint22	oc0a		ain0		6
+PD7	pcint23			ain1		7
+
+				adc6		A6
+				adc7		A7
+
+
+(GND)	RAW GND RST VCC  A3  A2  A1  A0  13  12  11  10
+(GND)	                A5 A4                        A7
+(VCC)                                                A6
+(RX)                                                GND
+(TX)
+(DTR)	TXD RXD RST GND  2   3   4   5   6   7   8   9
+
+
+
+	RAW GND RST VCC A3  A2  A1  A0  13  12  11  10
+	                                            A7
+Serial                                              A6
+                                                    A5
+                                                    A4
+	TXD RXD RST GND  2   3   4   5   6   7   8   9

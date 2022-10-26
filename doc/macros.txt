@@ -1,0 +1,177 @@
+Types of macros (defined or by user code):
+
+Enable a callback: CALL_usb_setup0
+	When defined, the callback function will be declared and called.
+	User code must define the callback function.
+	When not defined, it will never be referenced.
+	Callback functions are declard static.
+	This means that they must only be defined if they are used.
+
+
+All macros:
+
+Formats:
+	Callback enabling:
+		CALL_<callback function name>
+	Buffer enabling:
+		<PART PREFIX>_{RX|TX}_SIZE
+		<PART PREFIX>_{RX|TX}_PACKETS
+	Enable features:
+		<PART PREFIX>_ENABLE(_<FEATURE>)?
+	Settings:
+		<PART PREFIX>_<SETTING>
+	Utility constants (predefined):
+		(No standard format; there should be very few of those.)
+	Utility functions (predefined):
+		<PART PREFIX>_<FUNCTION>
+}}}
+
+Non-usb: {{{
+	Callback enabling:
+		NO_main
+			NO_setup
+			CALL_loop
+		CALL_system_clock0_interrupt
+		CALL_loop
+		CALL_spi_send_done
+
+	Buffer enabling:
+		TWI_BUFFER_SIZE		Probably change this.
+		USART_RX*_SIZE
+		USART_TX*_SIZE
+		SPI_RX_SIZE
+		SPI_RX_PACKETS
+		SPI_TX_SIZE
+		SPI_TX_PACKETS
+
+	Low level enable optional hardware support (costs resources):
+		SPI_ENABLE_MASTER
+		SPI_ENABLE_SLAVE
+		SPI_ENABLE_BOTH
+
+	Enable (or disable) high level feature:
+		INFO_ENABLE_ALL
+			INFO_ENABLE
+			INFO_ENABLE_NAMES
+			INFO_ENABLE_*
+		TWI_ENABLE
+		SYSTEM_CLOCK0_ENABLE
+			SYSTEM_CLOCK0_DIVIDER
+			SYSTEM_CLOCK0_TICKS_PER_UNIT
+			SYSTEM_CLOCK0_TYPE
+		USART*_ENABLE_RX
+		(TODO: enable clock calibration at boot)
+
+	Utility constants (predefined):
+		F_CPU
+		MCU
+		NUM_DIGITAL_PINS
+
+	Utility functions (predefined):
+		GPIO_DDR	(from mcu)
+		GPIO_PORT	(from mcu)
+		GPIO_PIN	(from mcu)
+		GPIO_MASK	(part prefix)
+		GPIO_MAKE_PIN	(part prefix)
+		COUNTER0_DIV_TO_SOURCE	(part prefix)
+		COUNTER0_SOURCE_TO_DIV	(part prefix)
+		STREAM_BUFFER
+		STREAM_BUFFER_WITH_CBS
+		PACKET_BUFFER
+		PACKET_BUFFER_WITH_CBS
+
+	Debug enable:
+		DBG_ENABLE
+		USART*_ECHO
+}}}
+
+Usb: {{{
+	Callback enabling:
+		CALL_usb_hid_physical
+		CALL_usb_reset
+		CALL_usb_configured
+		CALL_usb_deconfigured
+		CALL_usb_suspended
+		CALL_usb_wakeup
+		CALL_usb_sof
+		CALL_usb_resuming
+		CALL_usb_resumed
+		CALL_usb_pll_wait
+		CALL_usb_get_descriptor
+		CALL_usb_setup0
+		CALL_usb_setup
+		CALL_usb_out0
+		CALL_usb_out
+		CALL_usb_in0
+		CALL_usb_in
+		CALL_usb_stalled
+		CALL_usb_nak_in
+		CALL_usb_nak_out
+		CALL_usb_overflow
+		CALL_usb_underflow
+
+	Buffer enabling:
+		USB_RX*_BULK
+			USB_RX*_BULK_PACKETS
+		USB_RX*_INTERRUPT	// Size of packet buffer.
+			USB_RX*_INTERRUPT_PACKETS
+			USB_EP*_SIZE	// Size of endpoint buffer; must match Endpoint descriptor.
+		USB_TX*_BULK
+			USB_TX*_BULK_PACKETS
+		USB_TX*_INTERRUPT
+			USB_TX*_INTERRUPT_PACKETS
+		USB_DEFAULT_PACKETS
+
+	System configuration
+		USB_DOUBLE_BANK
+		USB_MAX_INTERFACES
+		USB_VENDOR
+		USB_PRODUCT
+		USB_NUM_LANGS
+		USB_NUM_STRINGS
+		USB_LOW_SPEED
+
+	Enable (or disable) high level feature:
+		USB_ENABLE
+		USB_ENABLE_HID
+		USB_ENABLE_SIMPLE_HID_SETUP
+
+	Utility (predefined):
+		USB_BUILD_ENDPOINT
+		USB_BUILD_INTERFACE
+		USB_BUILD_CONFIGURATION
+		USB_BUILD_DEVICE
+		USB_BUILD_STRING
+		USB_BUILD_IA
+		USB_BUILD_IA_DEVICE
+		USB_BUILD_CDC_HEADER
+		USB_BUILD_CDC_UNION
+		USB_BUILD_CDC_CALL_MANAGEMENT
+		USB_BUILD_CDC_ACM
+		USB_BUILD_HID_TYPE
+		USB_BUILD_HID
+
+		USB_SIMPLE_ENDPOINT
+		USB_SIMPLE_INTERFACE
+		USB_SIMPLE_HID_INTERFACE
+		USB_SIMPLE_CONFIGURATION
+		USB_SIMPLE_SINGLE_CONFIGURATION
+		USB_SIMPLE_DEVICE
+		USB_SIMPLE_IA_DEVICE
+		USB_SIMPLE_CDC_CONFIGURATION
+		USB_SIMPLE_HID_SETUP
+		USB_SINGLE_HID_DESCRIPTOR
+		USB_SIMPLE_HID
+
+		USB_HID0
+		USB_HID1
+		USB_HID2
+		USB_HID_LONG_HEADER
+
+		USB_STALL
+
+	Debug enable:
+		USB_ECHO
+}}}
+
+vim: set foldmethod=marker :

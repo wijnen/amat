@@ -1,7 +1,7 @@
 Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
-Upstream-Name: avr-ll
+Upstream-Name: amat
 Upstream-Contact: Bas Wijnen <wijnen@debian.org>
-Source: https://github.com/wijnen/avr-ll
+Source: https://github.com/wijnen/amat
 
 Files: *
 Copyright:

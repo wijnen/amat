@@ -1,0 +1,4 @@
+amat/parts/*.hh	/usr/include/amat/parts/
+amat/mcu/*.hh		/usr/include/amat/mcu/
+amat/amat.hh	/usr/include/amat/
+amat.mk		/usr/include/

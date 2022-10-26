@@ -1,0 +1,56 @@
+Arduino		Gpio	Int	Serial		Timer		ADC	Other
+
+(D17)		PB0	PCINT0	SS
+D15		PB1	PCINT1	SCK
+D16		PB2	PCINT2	MOSI					PDI
+D14		PB3	PCINT3	MISO					PDO
+D8(/D26/A8)	PB4	PCINT4					ADC11
+D9(/D27/A9)	PB5	PCINT5			OC1A/~OC4B	ADC12
+D10(/D28/A10)	PB6	PCINT6			OC1B/OC4B	ADC13
+(D11)		PB7	PCINT7	~RTS		OC0A/OC1C
+
+D5		PC6				OC3A/~OC4A
+(D13)		PC7				OC4A/ICP3		CLKO
+
+D3		PD0	INT0	SCL		OC0B
+D2		PD1	INT1	SDA
+D0		PD2	INT2	RXD1
+D1		PD3	INT3	TXD1
+D4(/D24/A6)	PD4				ICP1		ADC8
+(D30)		PD5		XCK1/~CTS
+(D12/D29/A11)	PD6				T1/~OC4D	ADC9
+D6(/D25/A7)	PD7				T0/OC4D	ADC10
+
+(-)		PE2							~HWB
+D7		PE6	INT6					AIN0
+
+(D23/A5)	PF0						ADC0
+(D22/A4)	PF1						ADC1
+D21/A3		PF4						ADC4	TCK
+D20/A2		PF5						ADC5	TMS
+D19/A1		PF6						ADC6	TDO
+D18/A0		PF7						ADC7	TDI
+
+Parenthesized Arduino pins are not available on Pro Micro.
+
+
+Pins:
+	RAW GND RST		       SCK MISO MOSI
+	RAW GND RST VCC  A3  A2  A1  A0 D15 D14 D16 D10
+
+USB
+
+	 TX  RX GND GND  D2  D3  D4  D5  D6  D7  D8  D9
+
+
+
+The Caterina bootloader can either go into programming mode, or go straight to running the program from flash.
+
+It decides according to this:
+
+- If there was an external reset, go to programming mode
+- If there was a power-on reset and there is code at 0x0000, jump to 0x0000
+- If there was a watchdog reset and the magic key is set and there is code at 0x0000, jump to 0x0000
+- Otherwise, go to programming mode
+
+The magic key is uint16_t(0x7777). The magic location is 0x0800.
