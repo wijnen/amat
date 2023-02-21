@@ -47,6 +47,10 @@ ISR(TIMER1_CAPT_vect) {
 #define ANALOG_COMP_vect ANA_COMP_vect
 #endif
 
+#ifndef DIDR
+#define DIDR DIDR0
+#endif
+
 #ifndef DIDR1
 #define DIDR1 DIDR
 #endif
@@ -112,11 +116,13 @@ namespace Comparator {
 	static inline void enable(Edge edge = TOGGLE) { // {{{
 		ACSR &= ~(_BV(ACD) | _BV(ACIS1) | _BV(ACIS0));
 		ACSR |= edge;
+#ifdef AIN0D
 		DIDR1 = _BV(AIN0D)
 #ifdef AIN1D
 			| _BV(AIN1D)
 #endif
 			;
+#endif
 	} // }}}
 
 	/// Disable the analog comparator

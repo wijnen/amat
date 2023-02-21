@@ -321,7 +321,7 @@ static inline void packet_buffer_end();
 		return (size); \
 	} /* }}} */ \
 	static inline uint8_t name ## _packets_available() { /* {{{ */ \
-		return (name ## _last_packet - name ## _first_packet + (num_packets)) % (num_packets); \
+		return (name ## _last_packet - name ## _first_packet + ((num_packets) + 2)) % ((num_packets) + 2) - 2; \
 	} /* }}} */ \
 	static inline uint8_t name ## _packet_length() { /* {{{ For reading. */ \
 		return (name ## _head[(name ## _first_packet + 1) % ((num_packets) + 2)] - name ## _head[name ## _first_packet] + (size)) % (size); \

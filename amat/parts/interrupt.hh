@@ -20,7 +20,7 @@ void setup() {
 
 ISR(INT0_vect) {
 	// Use pin as defined by MCU to get current state.
-	dbg("Int0 pin changed state. Now: #", Gpio::read(INT0_PIN));
+	dbg("Int0 pin changed state. Now: #", Gpio::read(PIN_INT0));
 }
 
 ISR(PCINT1_vect) {
@@ -42,6 +42,10 @@ ISR(PCINT1_vect) {
 #define _AVR_EICR(n) MCUCR
 #endif
 
+#ifndef EIFR
+#define EIFR GIFR
+#endif
+
 #ifndef EIMSK
 #define EIMSK GIMSK
 #endif
@@ -53,7 +57,7 @@ ISR(PCINT1_vect) {
 #if defined(PCMSK2)
 #define _AVR_PCMSK(n) (n < 8 ? PCMSK0 : n < 16 ? PCMSK1 : PCMSK2)
 #elif defined(PCMSK1)
-#define _AVR_PCMSK(n) (n < 8 ? PCMSK0 PCMSK1)
+#define _AVR_PCMSK(n) (n < 8 ? PCMSK0 : PCMSK1)
 #elif defined(PCMSK0)
 #define _AVR_PCMSK(n) PCMSK0
 #else
@@ -70,7 +74,7 @@ ISR(PCINT1_vect) {
 // }}}
 /// @endcond
 
-#ifdef INT7_PIN
+#ifdef PIN_INT7
 #define AVR_INT7_MASK (1 << 7)
 #ifndef INT_LAST_PIN
 #define INT_LAST_PIN 7
@@ -79,7 +83,7 @@ ISR(PCINT1_vect) {
 #define AVR_INT7_MASK 0
 #endif
 
-#ifdef INT6_PIN
+#ifdef PIN_INT6
 #define AVR_INT6_MASK (1 << 6)
 #ifndef INT_LAST_PIN
 #define INT_LAST_PIN 6
@@ -88,7 +92,7 @@ ISR(PCINT1_vect) {
 #define AVR_INT6_MASK 0
 #endif
 
-#ifdef INT5_PIN
+#ifdef PIN_INT5
 #define AVR_INT5_MASK (1 << 5)
 #ifndef INT_LAST_PIN
 #define INT_LAST_PIN 5
@@ -97,7 +101,7 @@ ISR(PCINT1_vect) {
 #define AVR_INT5_MASK 0
 #endif
 
-#ifdef INT4_PIN
+#ifdef PIN_INT4
 #define AVR_INT4_MASK (1 << 4)
 #ifndef INT_LAST_PIN
 #define INT_LAST_PIN 4
@@ -106,7 +110,7 @@ ISR(PCINT1_vect) {
 #define AVR_INT4_MASK 0
 #endif
 
-#ifdef INT3_PIN
+#ifdef PIN_INT3
 #define AVR_INT3_MASK (1 << 3)
 #ifndef INT_LAST_PIN
 #define INT_LAST_PIN 3
@@ -115,7 +119,7 @@ ISR(PCINT1_vect) {
 #define AVR_INT3_MASK 0
 #endif
 
-#ifdef INT2_PIN
+#ifdef PIN_INT2
 #define AVR_INT2_MASK (1 << 2)
 #ifndef INT_LAST_PIN
 #define INT_LAST_PIN 2
@@ -124,7 +128,7 @@ ISR(PCINT1_vect) {
 #define AVR_INT2_MASK 0
 #endif
 
-#ifdef INT1_PIN
+#ifdef PIN_INT1
 #define AVR_INT1_MASK (1 << 1)
 #ifndef INT_LAST_PIN
 #define INT_LAST_PIN 1
@@ -133,7 +137,7 @@ ISR(PCINT1_vect) {
 #define AVR_INT1_MASK 0
 #endif
 
-#ifdef INT0_PIN
+#ifdef PIN_INT0
 #define AVR_INT0_MASK (1 << 0)
 #ifndef INT_LAST_PIN
 #define INT_LAST_PIN 0

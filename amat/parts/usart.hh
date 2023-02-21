@@ -81,13 +81,13 @@
 #endif
 
 #ifdef UDR0
-#define RXD_PIN RXD0_PIN
-#define TXD_PIN TXD0_PIN
-#define XCK_PIN XCK0_PIN
+#define PIN_RXD PIN_RXD0
+#define PIN_TXD PIN_TXD0
+#define PIN_XCK PIN_XCK0
 #else
-#define RXD_PIN RXD1_PIN
-#define TXD_PIN TXD1_PIN
-#define XCK_PIN XCK1_PIN
+#define PIN_RXD PIN_RXD1
+#define PIN_TXD PIN_TXD1
+#define PIN_XCK PIN_XCK1
 #endif
 #endif
 // }}}
@@ -399,9 +399,9 @@ namespace Usart {
 		} \
 		_AVR_USART_ENABLE_RXC ## idx \
 		if (USART ## idx ## _MODE == MASTER || USART ## idx ## _MODE == SPI) \
-			Gpio::DDR(XCK ## idx ## _PIN >> 3) |= _BV(XCK ## idx ## _PIN & 0x7); \
+			Gpio::DDR(PIN_XCK ## idx >> 3) |= _BV(PIN_XCK ## idx & 0x7); \
 		else if (USART ## idx ## _MODE == SLAVE) \
-			Gpio::DDR(XCK ## idx ## _PIN >> 3) &= ~_BV(XCK ## idx ## _PIN & 0x7); \
+			Gpio::DDR(PIN_XCK ## idx >> 3) &= ~_BV(PIN_XCK ## idx & 0x7); \
 	} \
 	static inline void disable ## idx() { UCSR ## idx ## B = 0; } \
 	static inline void enable_rxc ## idx() { UCSR ## idx ## B |= _BV(RXCIE ## idx); } \
@@ -428,7 +428,7 @@ namespace Usart {
 #ifndef _AVR_NUM_USART
 #define _AVR_NUM_USART 4
 #endif
-#define _AVR_USART3_PINS , RXD3_PIN, TXD3_PIN, XCK3_PIN
+#define _AVR_USART3_PINS , PIN_RXD3, PIN_TXD3, PIN_XCK3
 #elif defined(_AVR_NUM_USART)
 #define _AVR_USART3_PINS , 0xff, 0xff, 0xff
 #else
@@ -441,7 +441,7 @@ namespace Usart {
 #ifndef _AVR_NUM_USART
 #define _AVR_NUM_USART 3
 #endif
-#define _AVR_USART2_PINS , RXD2_PIN, TXD2_PIN, XCK2_PIN
+#define _AVR_USART2_PINS , PIN_RXD2, PIN_TXD2, PIN_XCK2
 #elif defined(_AVR_NUM_USART)
 #define _AVR_USART2_PINS , 0xff, 0xff, 0xff
 #else
@@ -460,7 +460,7 @@ namespace Usart {
 #ifndef _AVR_NUM_USART
 #define _AVR_NUM_USART 2
 #endif
-#define _AVR_USART1_PINS , RXD1_PIN, TXD1_PIN, XCK1_PIN
+#define _AVR_USART1_PINS , PIN_RXD1, PIN_TXD1, PIN_XCK1
 #elif defined(_AVR_NUM_USART)
 #define _AVR_USART1_PINS , 0xff, 0xff, 0xff
 #else
@@ -475,7 +475,7 @@ namespace Usart {
 #ifndef _AVR_NUM_USART
 #define _AVR_NUM_USART 1
 #endif
-#define _AVR_USART0_PINS RXD0_PIN, TXD0_PIN, XCK0_PIN
+#define _AVR_USART0_PINS PIN_RXD0, PIN_TXD0, PIN_XCK0
 #elif defined(_AVR_NUM_USART)
 #define _AVR_USART0_PINS 0xff, 0xff, 0xff
 #else

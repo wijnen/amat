@@ -2,35 +2,35 @@
 #define _AVR_ATTINY2313
 
 // Timers {{{
-#define OC0A_PIN GPIO_MAKE_PIN(PB, 2)
-#define OC0B_PIN GPIO_MAKE_PIN(PD, 5)
-#define T0_PIN GPIO_MAKE_PIN(PD, 4)
+#define PIN_OC0A GPIO_MAKE_PIN(PB, 2)
+#define PIN_OC0B GPIO_MAKE_PIN(PD, 5)
+#define PIN_T0 GPIO_MAKE_PIN(PD, 4)
 #define TIMSK0 TIMSK
 #define TIFR0 TIFR
 
 #define TIMSK1 TIMSK
 #define TIFR1 TIFR
-#define OC1A_PIN GPIO_MAKE_PIN(PB, 3)
-#define OC1B_PIN GPIO_MAKE_PIN(PB, 4)
-#define T1_PIN GPIO_MAKE_PIN(PD, 5)
-#define ICP1_PIN GPIO_MAKE_PIN(PD, 6)
+#define PIN_OC1A GPIO_MAKE_PIN(PB, 3)
+#define PIN_OC1B GPIO_MAKE_PIN(PB, 4)
+#define PIN_T1 GPIO_MAKE_PIN(PD, 5)
+#define PIN_ICP1 GPIO_MAKE_PIN(PD, 6)
 // }}}
 
 // Comparator {{{
-#define AIN0_PIN GPIO_MAKE_PIN(PB, 0)
-#define AIN1_PIN GPIO_MAKE_PIN(PB, 1)
+#define PIN_AIN0 GPIO_MAKE_PIN(PB, 0)
+#define PIN_AIN1 GPIO_MAKE_PIN(PB, 1)
 // }}}
 
 // Usart {{{
-#define RXD0_PIN GPIO_MAKE_PIN(PD, 0)
-#define TXD0_PIN GPIO_MAKE_PIN(PD, 1)
-#define XCK0_PIN GPIO_MAKE_PIN(PD, 2)
+#define PIN_RXD0 GPIO_MAKE_PIN(PD, 0)
+#define PIN_TXD0 GPIO_MAKE_PIN(PD, 1)
+#define PIN_XCK0 GPIO_MAKE_PIN(PD, 2)
 // }}}
 
 // Usi {{{
-#define DI_PIN GPIO_MAKE_PIN(PB, 5)
-#define DO_PIN GPIO_MAKE_PIN(PB, 6)
-#define USCK_PIN GPIO_MAKE_PIN(PB, 7)
+#define PIN_DI GPIO_MAKE_PIN(PB, 5)
+#define PIN_DO GPIO_MAKE_PIN(PB, 6)
+#define PIN_USCK GPIO_MAKE_PIN(PB, 7)
 // }}}
 
 // Pcint {{{
@@ -48,16 +48,16 @@
 // }}}
 
 // Int {{{
-#define INT0_PIN GPIO_MAKE_PIN(PD, 2)
-#define INT1_PIN GPIO_MAKE_PIN(PD, 3)
+#define PIN_INT0 GPIO_MAKE_PIN(PD, 2)
+#define PIN_INT1 GPIO_MAKE_PIN(PD, 3)
 // }}}
 
 // Other pins {{{
-#define RESET_PIN GPIO_MAKE_PIN(PA, 2)
-#define DW_PIN GPIO_MAKE_PIN(PA, 2)
-#define XTAL1_PIN GPIO_MAKE_PIN(PA, 0)
-#define XTAL2_PIN GPIO_MAKE_PIN(PA, 1)
-#define CLKO_PIN GPIO_MAKE_PIN(PD, 2)
+#define PIN_RESET GPIO_MAKE_PIN(PA, 2)
+#define PIN_DW GPIO_MAKE_PIN(PA, 2)
+#define PIN_XTAL1 GPIO_MAKE_PIN(PA, 0)
+#define PIN_XTAL2 GPIO_MAKE_PIN(PA, 1)
+#define PIN_CLKO GPIO_MAKE_PIN(PD, 2)
 // }}}
 
 #include "../parts/common.hh"

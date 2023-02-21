@@ -261,18 +261,18 @@ namespace Clock {
 		// Save backup values of registers that are about to be changed.
 		uint8_t tccr1a = TCCR1A;
 		uint8_t tccr1b = TCCR1B;
-		uint8_t port = Gpio::PORT(ICP1_PIN >> 3);
-		uint8_t ddr = Gpio::DDR(ICP1_PIN >> 3);
+		uint8_t port = Gpio::PORT(PIN_ICP1 >> 3);
+		uint8_t ddr = Gpio::DDR(PIN_ICP1 >> 3);
 
 		uint8_t bit;
 		uint16_t const pulse_duration = F_CPU * 9 / 4800;
 		Counter::enable1(Counter::s1_div1);
 		start_calibration(bit);
-		Gpio::input(ICP1_PIN, true);
-		volatile uint8_t &pinreg = Gpio::PIN((ICP1_PIN >> 3) & 0xf);
+		Gpio::input(PIN_ICP1, true);
+		volatile uint8_t &pinreg = Gpio::PIN((PIN_ICP1 >> 3) & 0xf);
 		if (&pinreg == &GPIOR0)	// It returns this for invalid ports.
 			return;
-		uint8_t b = ICP1_PIN & 0x7;
+		uint8_t b = PIN_ICP1 & 0x7;
 		while ((pinreg & (1 << b)) == 0) {}
 		Counter::setup_capt1(false);
 		Counter::clear_ints1();
@@ -302,8 +302,8 @@ namespace Clock {
 		}
 		TCCR1A = tccr1a;
 		TCCR1B = tccr1b;
-		Gpio::PORT(ICP1_PIN >> 3) = port;
-		Gpio::DDR(ICP1_PIN >> 3) = ddr;
+		Gpio::PORT(PIN_ICP1 >> 3) = port;
+		Gpio::DDR(PIN_ICP1 >> 3) = ddr;
 		SREG = sreg;
 	} // }}}
 #else

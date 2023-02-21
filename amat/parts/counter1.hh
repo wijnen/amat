@@ -70,6 +70,30 @@ void system_clock_interrupt() {
 ```
 */
 
+// Convenience defines. {{{
+#if defined(TIM0_OVF_vect) && !defined(TIMER0_OVF_vect)
+#define TIMER0_OVF_vect TIM0_OVF_vect
+#endif
+#if defined(TIM0_COMPA_vect) && !defined(TIMER0_COMPA_vect)
+#define TIMER0_COMPA_vect TIM0_COMPA_vect
+#endif
+#if defined(TIM0_COMPB_vect) && !defined(TIMER0_COMPB_vect)
+#define TIMER0_COMPB_vect TIM0_COMPB_vect
+#endif
+#if defined(TIM1_OVF_vect) && !defined(TIMER1_OVF_vect)
+#define TIMER1_OVF_vect TIM1_OVF_vect
+#endif
+#if defined(TIM1_COMPA_vect) && !defined(TIMER1_COMPA_vect)
+#define TIMER1_COMPA_vect TIM1_COMPA_vect
+#endif
+#if defined(TIM1_COMPB_vect) && !defined(TIMER1_COMPB_vect)
+#define TIMER1_COMPB_vect TIM1_COMPB_vect
+#endif
+#if defined(TIM1_CAPT_vect) && !defined(TIMER1_CAPT_vect)
+#define TIMER1_CAPT_vect TIM1_CAPT_vect
+#endif
+// }}}
+
 // Definition of _AVR_NUM_COUNTER3 {{{
 /// @cond
 #ifdef TCNT5L

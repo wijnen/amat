@@ -2,11 +2,11 @@
 #define _AVR_ATMEGA328P
 
 // Int {{{
-#define INT0_PIN GPIO_MAKE_PIN(PD, 0)
-#define INT1_PIN GPIO_MAKE_PIN(PD, 1)
-#define INT2_PIN GPIO_MAKE_PIN(PD, 2)
-#define INT3_PIN GPIO_MAKE_PIN(PD, 3)
-#define INT6_PIN GPIO_MAKE_PIN(PE, 6)
+#define PIN_INT0 GPIO_MAKE_PIN(PD, 0)
+#define PIN_INT1 GPIO_MAKE_PIN(PD, 1)
+#define PIN_INT2 GPIO_MAKE_PIN(PD, 2)
+#define PIN_INT3 GPIO_MAKE_PIN(PD, 3)
+#define PIN_INT6 GPIO_MAKE_PIN(PE, 6)
 // }}}
 
 // Pcint {{{
@@ -26,18 +26,18 @@
 // Adc {{{
 #define _AVR_NUM_ADC_PINS 14
 // Use ids that are not digital pins for adc6 and adc7, because they are not shared with digital pins.
-#define ADC0_PIN GPIO_MAKE_PIN(PF, 0)
-#define ADC1_PIN GPIO_MAKE_PIN(PF, 1)
-#define ADC4_PIN GPIO_MAKE_PIN(PF, 4)
-#define ADC5_PIN GPIO_MAKE_PIN(PF, 5)
-#define ADC6_PIN GPIO_MAKE_PIN(PF, 6)
-#define ADC7_PIN GPIO_MAKE_PIN(PF, 7)
-#define ADC8_PIN GPIO_MAKE_PIN(PD, 4)
-#define ADC9_PIN GPIO_MAKE_PIN(PD, 6)
-#define ADC10_PIN GPIO_MAKE_PIN(PD, 7)
-#define ADC11_PIN GPIO_MAKE_PIN(PB, 4)
-#define ADC12_PIN GPIO_MAKE_PIN(PB, 5)
-#define ADC13_PIN GPIO_MAKE_PIN(PB, 6)
+#define PIN_ADC0 GPIO_MAKE_PIN(PF, 0)
+#define PIN_ADC1 GPIO_MAKE_PIN(PF, 1)
+#define PIN_ADC4 GPIO_MAKE_PIN(PF, 4)
+#define PIN_ADC5 GPIO_MAKE_PIN(PF, 5)
+#define PIN_ADC6 GPIO_MAKE_PIN(PF, 6)
+#define PIN_ADC7 GPIO_MAKE_PIN(PF, 7)
+#define PIN_ADC8 GPIO_MAKE_PIN(PD, 4)
+#define PIN_ADC9 GPIO_MAKE_PIN(PD, 6)
+#define PIN_ADC10 GPIO_MAKE_PIN(PD, 7)
+#define PIN_ADC11 GPIO_MAKE_PIN(PB, 4)
+#define PIN_ADC12 GPIO_MAKE_PIN(PB, 5)
+#define PIN_ADC13 GPIO_MAKE_PIN(PB, 6)
 namespace Adc {
 	enum Source {
 		SRC_A0,
@@ -173,58 +173,58 @@ namespace Adc {
 // }}}
 
 // Comparator {{{
-#define AIN0_PIN GPIO_MAKE_PIN(PE, 6)
+#define PIN_AIN0 GPIO_MAKE_PIN(PE, 6)
 // }}}
 
 // Timers {{{
-#define OC0A_PIN GPIO_MAKE_PIN(PB, 7)
-#define OC0B_PIN GPIO_MAKE_PIN(PD, 0)
-#define T0_PIN GPIO_MAKE_PIN(PD, 7)
+#define PIN_OC0A GPIO_MAKE_PIN(PB, 7)
+#define PIN_OC0B GPIO_MAKE_PIN(PD, 0)
+#define PIN_T0 GPIO_MAKE_PIN(PD, 7)
 
-#define OC1A_PIN GPIO_MAKE_PIN(PB, 5)
-#define OC1B_PIN GPIO_MAKE_PIN(PB, 6)
-#define OC1C_PIN GPIO_MAKE_PIN(PB, 7)
-#define T1_PIN GPIO_MAKE_PIN(PD, 6)
-#define ICP1_PIN GPIO_MAKE_PIN(PD, 4)
+#define PIN_OC1A GPIO_MAKE_PIN(PB, 5)
+#define PIN_OC1B GPIO_MAKE_PIN(PB, 6)
+#define PIN_OC1C GPIO_MAKE_PIN(PB, 7)
+#define PIN_T1 GPIO_MAKE_PIN(PD, 6)
+#define PIN_ICP1 GPIO_MAKE_PIN(PD, 4)
 
-#define OC3A_PIN GPIO_MAKE_PIN(PC, 6)
-#define ICP3_PIN GPIO_MAKE_PIN(PC, 7)
+#define PIN_OC3A GPIO_MAKE_PIN(PC, 6)
+#define PIN_ICP3 GPIO_MAKE_PIN(PC, 7)
 // }}}
 
 // High speed counter {{{
-#define OC4A_PIN GPIO_MAKE_PIN(PC, 7)
-#define NOT_OC4A_PIN GPIO_MAKE_PIN(PC, 6)
+#define PIN_OC4A GPIO_MAKE_PIN(PC, 7)
+#define NOT_PIN_OC4A GPIO_MAKE_PIN(PC, 6)
 
-#define OC4B_PIN GPIO_MAKE_PIN(PB, 6)
-#define NOT_OC4B_PIN GPIO_MAKE_PIN(PB, 5)
+#define PIN_OC4B GPIO_MAKE_PIN(PB, 6)
+#define NOT_PIN_OC4B GPIO_MAKE_PIN(PB, 5)
 
-#define OC4D_PIN GPIO_MAKE_PIN(PD, 7)
-#define NOT_OC4D_PIN GPIO_MAKE_PIN(PD, 6)
+#define PIN_OC4D GPIO_MAKE_PIN(PD, 7)
+#define NOT_PIN_OC4D GPIO_MAKE_PIN(PD, 6)
 // }}}
 
 // Twi {{{
-#define SCL_PIN GPIO_MAKE_PIN(PD, 0)
-#define SDA_PIN GPIO_MAKE_PIN(PD, 1)
+#define PIN_SCL GPIO_MAKE_PIN(PD, 0)
+#define PIN_SDA GPIO_MAKE_PIN(PD, 1)
 // }}}
 
 // Spi {{{
-#define SS_PIN GPIO_MAKE_PIN(PB, 0)
-#define MOSI_PIN GPIO_MAKE_PIN(PB, 2)
-#define MISO_PIN GPIO_MAKE_PIN(PB, 3)
-#define SCK_PIN GPIO_MAKE_PIN(PB, 1)
+#define PIN_SS GPIO_MAKE_PIN(PB, 0)
+#define PIN_MOSI GPIO_MAKE_PIN(PB, 2)
+#define PIN_MISO GPIO_MAKE_PIN(PB, 3)
+#define PIN_SCK GPIO_MAKE_PIN(PB, 1)
 // }}}
 
 // Usart {{{
-#define RXD1_PIN GPIO_MAKE_PIN(PD, 2)
-#define TXD1_PIN GPIO_MAKE_PIN(PD, 3)
-#define XCK1_PIN GPIO_MAKE_PIN(PD, 5)
+#define PIN_RXD1 GPIO_MAKE_PIN(PD, 2)
+#define PIN_TXD1 GPIO_MAKE_PIN(PD, 3)
+#define PIN_XCK1 GPIO_MAKE_PIN(PD, 5)
 // }}}
 
 // Other pins {{{
-#define RESET_PIN GPIO_MAKE_PIN(0, 0)
-#define XTAL1_PIN GPIO_MAKE_PIN(0, 1)
-#define XTAL2_PIN GPIO_MAKE_PIN(0, 2)
-#define CLKO_PIN GPIO_MAKE_PIN(PC, 7)
+#define PIN_RESET GPIO_MAKE_PIN(0, 0)
+#define PIN_XTAL1 GPIO_MAKE_PIN(0, 1)
+#define PIN_XTAL2 GPIO_MAKE_PIN(0, 2)
+#define PIN_CLKO GPIO_MAKE_PIN(PC, 7)
 // }}}
 
 #include "../parts/common.hh"

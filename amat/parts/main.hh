@@ -123,6 +123,10 @@ static void loop();
 #define _AVR_SETUP_DBG
 #endif
 
+#ifndef _AVR_SETUP_USI
+#define _AVR_SETUP_USI
+#endif
+
 #ifndef _AVR_SETUP_USB
 #define _AVR_SETUP_USB
 #endif
@@ -149,6 +153,7 @@ static void loop();
 	_AVR_SETUP_COUNTER5 \
 	_AVR_SETUP_USART \
 	_AVR_SETUP_DBG \
+	_AVR_SETUP_USI \
 	_AVR_SETUP_USB
 
 /// The main function is defined if NO_main is not defined.

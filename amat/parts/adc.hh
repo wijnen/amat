@@ -39,12 +39,12 @@ ISR(ADC_vect) {
 
 /// @cond
 // Find number of pins and build pin id array for test. {{{
-#ifdef ADC15_PIN
+#ifdef PIN_ADC15
 #	ifndef ADC_LAST_PIN
 #		define ADC_LAST_PIN 15
-#		define _AVR_ADC15 ADC15_PIN
+#		define _AVR_ADC15 PIN_ADC15
 #	else
-#		define _AVR_ADC15 ADC15_PIN,
+#		define _AVR_ADC15 PIN_ADC15,
 #	endif
 #	define _AVR_ADC15_N 1
 #else
@@ -56,12 +56,12 @@ ISR(ADC_vect) {
 #	define _AVR_ADC15_N 0
 #endif
 
-#ifdef ADC14_PIN
+#ifdef PIN_ADC14
 #	ifndef ADC_LAST_PIN
 #		define ADC_LAST_PIN 14
-#		define _AVR_ADC14 ADC14_PIN
+#		define _AVR_ADC14 PIN_ADC14
 #	else
-#		define _AVR_ADC14 ADC14_PIN,
+#		define _AVR_ADC14 PIN_ADC14,
 #	endif
 #	define _AVR_ADC14_N 1
 #else
@@ -73,12 +73,12 @@ ISR(ADC_vect) {
 #	define _AVR_ADC14_N 0
 #endif
 
-#ifdef ADC13_PIN
+#ifdef PIN_ADC13
 #	ifndef ADC_LAST_PIN
 #		define ADC_LAST_PIN 13
-#		define _AVR_ADC13 ADC13_PIN
+#		define _AVR_ADC13 PIN_ADC13
 #	else
-#		define _AVR_ADC13 ADC13_PIN,
+#		define _AVR_ADC13 PIN_ADC13,
 #	endif
 #	define _AVR_ADC13_N 1
 #else
@@ -90,12 +90,12 @@ ISR(ADC_vect) {
 #	define _AVR_ADC13_N 0
 #endif
 
-#ifdef ADC12_PIN
+#ifdef PIN_ADC12
 #	ifndef ADC_LAST_PIN
 #		define ADC_LAST_PIN 12
-#		define _AVR_ADC12 ADC12_PIN
+#		define _AVR_ADC12 PIN_ADC12
 #	else
-#		define _AVR_ADC12 ADC12_PIN,
+#		define _AVR_ADC12 PIN_ADC12,
 #	endif
 #	define _AVR_ADC12_N 1
 #else
@@ -107,12 +107,12 @@ ISR(ADC_vect) {
 #	define _AVR_ADC12_N 0
 #endif
 
-#ifdef ADC11_PIN
+#ifdef PIN_ADC11
 #	ifndef ADC_LAST_PIN
 #		define ADC_LAST_PIN 11
-#		define _AVR_ADC11 ADC11_PIN
+#		define _AVR_ADC11 PIN_ADC11
 #	else
-#		define _AVR_ADC11 ADC11_PIN,
+#		define _AVR_ADC11 PIN_ADC11,
 #	endif
 #	define _AVR_ADC11_N 1
 #else
@@ -124,12 +124,12 @@ ISR(ADC_vect) {
 #	define _AVR_ADC11_N 0
 #endif
 
-#ifdef ADC10_PIN
+#ifdef PIN_ADC10
 #	ifndef ADC_LAST_PIN
 #		define ADC_LAST_PIN 10
-#		define _AVR_ADC10 ADC10_PIN
+#		define _AVR_ADC10 PIN_ADC10
 #	else
-#		define _AVR_ADC10 ADC10_PIN,
+#		define _AVR_ADC10 PIN_ADC10,
 #	endif
 #	define _AVR_ADC10_N 1
 #else
@@ -141,12 +141,12 @@ ISR(ADC_vect) {
 #	define _AVR_ADC10_N 0
 #endif
 
-#ifdef ADC9_PIN
+#ifdef PIN_ADC9
 #	ifndef ADC_LAST_PIN
 #		define ADC_LAST_PIN 9
-#		define _AVR_ADC9 ADC9_PIN
+#		define _AVR_ADC9 PIN_ADC9
 #	else
-#		define _AVR_ADC9 ADC9_PIN,
+#		define _AVR_ADC9 PIN_ADC9,
 #	endif
 #	define _AVR_ADC9_N 1
 #else
@@ -158,12 +158,12 @@ ISR(ADC_vect) {
 #	define _AVR_ADC9_N 0
 #endif
 
-#ifdef ADC8_PIN
+#ifdef PIN_ADC8
 #	ifndef ADC_LAST_PIN
 #		define ADC_LAST_PIN 8
-#		define _AVR_ADC8 ADC8_PIN
+#		define _AVR_ADC8 PIN_ADC8
 #	else
-#		define _AVR_ADC8 ADC8_PIN,
+#		define _AVR_ADC8 PIN_ADC8,
 #	endif
 #	define _AVR_ADC8_N 1
 #else
@@ -175,12 +175,12 @@ ISR(ADC_vect) {
 #	define _AVR_ADC8_N 0
 #endif
 
-#ifdef ADC7_PIN
+#ifdef PIN_ADC7
 #	ifndef ADC_LAST_PIN
 #		define ADC_LAST_PIN 7
-#		define _AVR_ADC7 ADC7_PIN
+#		define _AVR_ADC7 PIN_ADC7
 #	else
-#		define _AVR_ADC7 ADC7_PIN,
+#		define _AVR_ADC7 PIN_ADC7,
 #	endif
 #	define _AVR_ADC7_N 1
 #else
@@ -192,12 +192,12 @@ ISR(ADC_vect) {
 #	define _AVR_ADC7_N 0
 #endif
 
-#ifdef ADC6_PIN
+#ifdef PIN_ADC6
 #	ifndef ADC_LAST_PIN
 #		define ADC_LAST_PIN 6
-#		define _AVR_ADC6 ADC6_PIN
+#		define _AVR_ADC6 PIN_ADC6
 #	else
-#		define _AVR_ADC6 ADC6_PIN,
+#		define _AVR_ADC6 PIN_ADC6,
 #	endif
 #	define _AVR_ADC6_N 1
 #else
@@ -209,12 +209,12 @@ ISR(ADC_vect) {
 #	define _AVR_ADC6_N 0
 #endif
 
-#ifdef ADC5_PIN
+#ifdef PIN_ADC5
 #	ifndef ADC_LAST_PIN
 #		define ADC_LAST_PIN 5
-#		define _AVR_ADC5 ADC5_PIN
+#		define _AVR_ADC5 PIN_ADC5
 #	else
-#		define _AVR_ADC5 ADC5_PIN,
+#		define _AVR_ADC5 PIN_ADC5,
 #	endif
 #	define _AVR_ADC5_N 1
 #else
@@ -226,12 +226,12 @@ ISR(ADC_vect) {
 #	define _AVR_ADC5_N 0
 #endif
 
-#ifdef ADC4_PIN
+#ifdef PIN_ADC4
 #	ifndef ADC_LAST_PIN
 #		define ADC_LAST_PIN 4
-#		define _AVR_ADC4 ADC4_PIN
+#		define _AVR_ADC4 PIN_ADC4
 #	else
-#		define _AVR_ADC4 ADC4_PIN,
+#		define _AVR_ADC4 PIN_ADC4,
 #	endif
 #	define _AVR_ADC4_N 1
 #else
@@ -243,12 +243,12 @@ ISR(ADC_vect) {
 #	define _AVR_ADC4_N 0
 #endif
 
-#ifdef ADC3_PIN
+#ifdef PIN_ADC3
 #	ifndef ADC_LAST_PIN
 #		define ADC_LAST_PIN 3
-#		define _AVR_ADC3 ADC3_PIN
+#		define _AVR_ADC3 PIN_ADC3
 #	else
-#		define _AVR_ADC3 ADC3_PIN,
+#		define _AVR_ADC3 PIN_ADC3,
 #	endif
 #	define _AVR_ADC3_N 1
 #else
@@ -260,12 +260,12 @@ ISR(ADC_vect) {
 #	define _AVR_ADC3_N 0
 #endif
 
-#ifdef ADC2_PIN
+#ifdef PIN_ADC2
 #	ifndef ADC_LAST_PIN
 #		define ADC_LAST_PIN 2
-#		define _AVR_ADC2 ADC2_PIN
+#		define _AVR_ADC2 PIN_ADC2
 #	else
-#		define _AVR_ADC2 ADC2_PIN,
+#		define _AVR_ADC2 PIN_ADC2,
 #	endif
 #	define _AVR_ADC2_N 1
 #else
@@ -277,12 +277,12 @@ ISR(ADC_vect) {
 #	define _AVR_ADC2_N 0
 #endif
 
-#ifdef ADC1_PIN
+#ifdef PIN_ADC1
 #	ifndef ADC_LAST_PIN
 #		define ADC_LAST_PIN 1
-#		define _AVR_ADC1 ADC1_PIN
+#		define _AVR_ADC1 PIN_ADC1
 #	else
-#		define _AVR_ADC1 ADC1_PIN,
+#		define _AVR_ADC1 PIN_ADC1,
 #	endif
 #	define _AVR_ADC1_N 1
 #else
@@ -294,12 +294,12 @@ ISR(ADC_vect) {
 #	define _AVR_ADC1_N 0
 #endif
 
-#ifdef ADC0_PIN
+#ifdef PIN_ADC0
 #	ifndef ADC_LAST_PIN
 #		define ADC_LAST_PIN 0
-#		define _AVR_ADC0 ADC0_PIN
+#		define _AVR_ADC0 PIN_ADC0
 #	else
-#		define _AVR_ADC0 ADC0_PIN,
+#		define _AVR_ADC0 PIN_ADC0,
 #	endif
 #	define _AVR_ADC0_N 1
 #else
@@ -334,53 +334,53 @@ ISR(ADC_vect) {
 
 #ifdef ADC_ENABLE_PIN_LIST
 uint8_t adc_pin_list[ADC_NUM_PINS] = {
-#ifdef ADC0_PIN
-	ADC0_PIN,
+#ifdef PIN_ADC0
+	PIN_ADC0,
 #endif
-#ifdef ADC1_PIN
-	ADC1_PIN,
+#ifdef PIN_ADC1
+	PIN_ADC1,
 #endif
-#ifdef ADC2_PIN
-	ADC2_PIN,
+#ifdef PIN_ADC2
+	PIN_ADC2,
 #endif
-#ifdef ADC3_PIN
-	ADC3_PIN,
+#ifdef PIN_ADC3
+	PIN_ADC3,
 #endif
-#ifdef ADC4_PIN
-	ADC4_PIN,
+#ifdef PIN_ADC4
+	PIN_ADC4,
 #endif
-#ifdef ADC5_PIN
-	ADC5_PIN,
+#ifdef PIN_ADC5
+	PIN_ADC5,
 #endif
-#ifdef ADC6_PIN
-	ADC6_PIN,
+#ifdef PIN_ADC6
+	PIN_ADC6,
 #endif
-#ifdef ADC7_PIN
-	ADC7_PIN,
+#ifdef PIN_ADC7
+	PIN_ADC7,
 #endif
-#ifdef ADC8_PIN
-	ADC8_PIN,
+#ifdef PIN_ADC8
+	PIN_ADC8,
 #endif
-#ifdef ADC9_PIN
-	ADC9_PIN,
+#ifdef PIN_ADC9
+	PIN_ADC9,
 #endif
-#ifdef ADC10_PIN
-	ADC10_PIN,
+#ifdef PIN_ADC10
+	PIN_ADC10,
 #endif
-#ifdef ADC11_PIN
-	ADC11_PIN,
+#ifdef PIN_ADC11
+	PIN_ADC11,
 #endif
-#ifdef ADC12_PIN
-	ADC12_PIN,
+#ifdef PIN_ADC12
+	PIN_ADC12,
 #endif
-#ifdef ADC13_PIN
-	ADC13_PIN,
+#ifdef PIN_ADC13
+	PIN_ADC13,
 #endif
-#ifdef ADC14_PIN
-	ADC14_PIN,
+#ifdef PIN_ADC14
+	PIN_ADC14,
 #endif
-#ifdef ADC15_PIN
-	ADC15_PIN,
+#ifdef PIN_ADC15
+	PIN_ADC15,
 #endif
 };
 #endif

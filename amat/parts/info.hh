@@ -423,37 +423,37 @@ namespace Info {
 	// Build pin struct.
 	static inline uint8_t get_int_pin_id(uint8_t pin) {
 		switch (pin & 7) {
-#ifdef INT0_PIN
+#ifdef PIN_INT0
 		case 0:
-			return INT0_PIN;
+			return PIN_INT0;
 #endif
-#ifdef INT1_PIN
+#ifdef PIN_INT1
 		case 1:
-			return INT1_PIN;
+			return PIN_INT1;
 #endif
-#ifdef INT2_PIN
+#ifdef PIN_INT2
 		case 2:
-			return INT2_PIN;
+			return PIN_INT2;
 #endif
-#ifdef INT3_PIN
+#ifdef PIN_INT3
 		case 3:
-			return INT3_PIN;
+			return PIN_INT3;
 #endif
-#ifdef INT4_PIN
+#ifdef PIN_INT4
 		case 4:
-			return INT4_PIN;
+			return PIN_INT4;
 #endif
-#ifdef INT5_PIN
+#ifdef PIN_INT5
 		case 5:
-			return INT5_PIN;
+			return PIN_INT5;
 #endif
-#ifdef INT6_PIN
+#ifdef PIN_INT6
 		case 6:
-			return INT6_PIN;
+			return PIN_INT6;
 #endif
-#ifdef INT7_PIN
+#ifdef PIN_INT7
 		case 7:
-			return INT7_PIN;
+			return PIN_INT7;
 #endif
 		default:
 			return 0xff;
@@ -629,7 +629,7 @@ namespace Info {
 		return 0xb0;
 	}
 	static inline uint8_t get_spi_pin_id(uint8_t pin) {
-		uint8_t const ids[] = { SS_PIN, MOSI_PIN, MISO_PIN, SCK_PIN };
+		uint8_t const ids[] = { PIN_SS, PIN_MOSI, PIN_MISO, PIN_SCK };
 		return ids[pin - first_spi_pin()];
 	}
 	static inline uint8_t next_spi_pin(uint8_t pin) {
@@ -706,7 +706,7 @@ namespace Info {
 #endif
 	}
 	static inline uint8_t get_counter0_pin_id(uint8_t pin) {
-		uint8_t const ids[] = { OC0A_PIN, OC0B_PIN, T0_PIN };
+		uint8_t const ids[] = { PIN_OC0A, PIN_OC0B, PIN_T0 };
 		return ids[pin - 0xb4];
 	}
 	static inline uint8_t next_counter0_pin(uint8_t pin) {
@@ -774,20 +774,20 @@ namespace Info {
 	static uint8_t const last_counter1_pin = 0xbd;
 #if defined(_AVR_COUNTER1_HH) && (defined(INFO_ENABLE_COUNTER_OC) || defined(INFO_ENABLE_COUNTER_T) || defined(INFO_ENABLE_COUNTER_ICP))
 	static const uint8_t _AVR_COUNTER1_ID[] PROGMEM = {
-		OC1A_PIN,
-		OC1B_PIN,
-#ifdef OC1C_PIN
-		OC1C_PIN,
+		PIN_OC1A,
+		PIN_OC1B,
+#ifdef PIN_OC1C
+		PIN_OC1C,
 #else
 		0xff,
 #endif
 		0xff,
-#ifdef T1_PIN
-		T1_PIN,
+#ifdef PIN_T1
+		PIN_T1,
 #else
 		0xff,
 #endif
-		ICP1_PIN
+		PIN_ICP1
 	};
 	static inline uint8_t first_counter1_pin() {
 #ifdef INFO_ENABLE_COUNTER_OC
@@ -911,7 +911,7 @@ namespace Info {
 		return 0xbe;
 	}
 	static inline uint8_t get_counter2_pin_id(uint8_t pin) {
-		uint8_t const ids[] = { OC2A_PIN, OC2B_PIN };
+		uint8_t const ids[] = { PIN_OC2A, PIN_OC2B };
 		return ids[pin & 1];
 	}
 	static inline uint8_t next_counter2_pin(uint8_t pin) {
@@ -947,59 +947,59 @@ namespace Info {
 	// Counter 3, 4, 5. {{{
 	static uint8_t const last_counter3_pin = 0xdf;
 #if defined(_AVR_COUNTER1_HH) && defined(TCNT3L) && (defined(INFO_ENABLE_COUNTER_OC) || defined(INFO_ENABLE_COUNTER_T) || defined(INFO_ENABLE_COUNTER_ICP))
-#ifdef OC3B_PIN
-#define AVR_OC3B_PIN OC3B_PIN
+#ifdef PIN_OC3B
+#define AVR_OC3B_PIN PIN_OC3B
 #else
 #define AVR_OC3B_PIN 0xff
 #endif
-#ifdef OC3C_PIN
-#define AVR_OC3C_PIN OC3C_PIN
+#ifdef PIN_OC3C
+#define AVR_OC3C_PIN PIN_OC3C
 #else
 #define AVR_OC3C_PIN 0xff
 #endif
-#ifdef T3_PIN
-#define AVR_T3_PIN T3_PIN
+#ifdef PIN_T3
+#define AVR_T3_PIN PIN_T3
 #else
 #define AVR_T3_PIN 0xff
 #endif
 #define _AVR_COUNTER3_ID3 \
-	OC3A_PIN, \
+	PIN_OC3A, \
 	AVR_OC3B_PIN, \
 	AVR_OC3C_PIN, \
 	0xff, \
 	AVR_T3_PIN, \
-	ICP3_PIN
+	PIN_ICP3
 #if defined(TCNT4L) && !defined(TCCR4E)
-#ifdef OC4C_PIN
-#define AVR_OC4C_PIN OC4C_PIN
+#ifdef PIN_OC4C
+#define AVR_OC4C_PIN PIN_OC4C
 #else
 #define AVR_OC4C_PIN 0xff
 #endif
 #define _AVR_COUNTER3_ID4 \
 	, 0xff, 0xff, \
-	OC4A_PIN, \
-	OC4B_PIN, \
+	PIN_OC4A, \
+	PIN_OC4B, \
 	AVR_OC4C_PIN, \
 	0xff, \
-	T4_PIN, \
-	ICP4_PIN
+	PIN_T4, \
+	PIN_ICP4
 #else
 #define _AVR_COUNTER3_ID4
 #endif
 #ifdef TCNT5L
-#ifdef OC5C_PIN
-#define AVR_OC5C_PIN OC5C_PIN
+#ifdef PIN_OC5C
+#define AVR_OC5C_PIN PIN_OC5C
 #else
 #define AVR_OC5C_PIN 0xff
 #endif
 #define _AVR_COUNTER3_ID5 \
 	, 0xff, 0xff, \
-	OC5A_PIN, \
-	OC5B_PIN, \
+	PIN_OC5A, \
+	PIN_OC5B, \
 	AVR_OC5C_PIN, \
 	0xff, \
-	T5_PIN, \
-	ICP5_PIN
+	PIN_T5, \
+	PIN_ICP5
 #else
 #define _AVR_COUNTER3_ID5
 #endif
@@ -1116,19 +1116,19 @@ namespace Info {
 		return 0xbe;
 	}
 	static inline uint8_t get_comparator_pin_id(uint8_t pin) {
-#ifdef AIN1_PIN
-		uint8_t const ids[] = { AIN0_PIN, AIN1_PIN };
+#ifdef PIN_AIN1
+		uint8_t const ids[] = { PIN_AIN0, PIN_AIN1 };
 		return ids[pin & 1];
 #else
 		(void)&pin;
-		return AIN0_PIN;
+		return PIN_AIN0;
 #endif
 	}
 	static inline uint8_t next_comparator_pin(uint8_t pin) {
 		uint8_t first = first_comparator_pin();
 		if (pin < first)
 			return first;
-#ifdef AIN1_PIN
+#ifdef PIN_AIN1
 		if ((pin & 1) == 0)
 			return pin + 1;
 #endif
@@ -1217,7 +1217,7 @@ namespace Info {
 		return 0xf0;
 	}
 	static inline uint8_t get_usi_pin_id(uint8_t pin) {
-		uint8_t const ids[] = { DI_PIN, DO_PIN, USCK_PIN };
+		uint8_t const ids[] = { PIN_DI, PIN_DO, PIN_USCK };
 		return ids[pin & 3];
 	}
 	static inline uint8_t next_usi_pin(uint8_t pin) {
@@ -1279,7 +1279,7 @@ namespace Info {
 		return 0xf4;
 	}
 	static inline uint8_t get_twi_pin_id(uint8_t pin) {
-		uint8_t const ids[] = { SCL_PIN, SDA_PIN };
+		uint8_t const ids[] = { PIN_SCL, PIN_SDA };
 		return ids[pin & 1];
 	}
 	static inline uint8_t next_twi_pin(uint8_t pin) {
@@ -1328,7 +1328,7 @@ namespace Info {
 	}
 	static inline uint8_t get_clko_pin_id(uint8_t pin) {
 		(void)&pin;
-		return CLKO_PIN;
+		return PIN_CLKO;
 	}
 	static inline uint8_t next_clko_pin(uint8_t pin) {
 		uint8_t first = first_clko_pin();
@@ -1361,13 +1361,13 @@ namespace Info {
 
 	// dW. {{{
 	static uint8_t const last_dw_pin = 0xf7;
-#if defined(DW_PIN) && defined(INFO_ENABLE_DW)
+#if defined(PIN_DW) && defined(INFO_ENABLE_DW)
 	static inline uint8_t first_dw_pin() {
 		return 0xf7;
 	}
 	static inline uint8_t get_dw_pin_id(uint8_t pin) {
 		(void)&pin;
-		return DW_PIN;
+		return PIN_DW;
 	}
 	static inline uint8_t next_dw_pin(uint8_t pin) {
 		uint8_t first = first_dw_pin();
@@ -1399,12 +1399,12 @@ namespace Info {
 	// JTAG. {{{
 	// TCK, TMS, TDO, TDI.
 	static uint8_t const last_jtag_pin = 0xfb;
-#if defined(TCK_PIN) && defined(INFO_ENABLE_JTAG)
+#if defined(PIN_TCK) && defined(INFO_ENABLE_JTAG)
 	static inline uint8_t first_jtag_pin() {
 		return 0xf8;
 	}
 	static inline uint8_t get_jtag_pin_id(uint8_t pin) {
-		uint8_t const ids[] = { TCK_PIN, TMS_PIN, TDO_PIN, TDI_PIN };
+		uint8_t const ids[] = { PIN_TCK, PIN_TMS, PIN_TDO, PIN_TDI };
 		return ids[pin & 3];
 	}
 	static inline uint8_t next_jtag_pin(uint8_t pin) {
@@ -1465,12 +1465,12 @@ namespace Info {
 
 	// XTAL. {{{
 	static uint8_t const last_xtal_pin = 0xfd;
-#if defined(XTAL1_PIN) && defined(INFO_ENABLE_XTAL)
+#if defined(PIN_XTAL1) && defined(INFO_ENABLE_XTAL)
 	static inline uint8_t first_xtal_pin() {
 		return 0xfc;
 	}
 	static inline uint8_t get_xtal_pin_id(uint8_t pin) {
-		uint8_t const ids[] = { XTAL1_PIN, XTAL2_PIN };
+		uint8_t const ids[] = { PIN_XTAL1, PIN_XTAL2 };
 		return ids[pin & 1];
 	}
 	static inline uint8_t next_xtal_pin(uint8_t pin) {
@@ -1506,13 +1506,13 @@ namespace Info {
 
 	// RESET. {{{
 	static uint8_t const last_reset_pin = 0xfe;
-#if defined(RESET_PIN) && defined(INFO_ENABLE_RESET)
+#if defined(PIN_RESET) && defined(INFO_ENABLE_RESET)
 	static inline uint8_t first_reset_pin() {
 		return 0xfe;
 	}
 	static inline uint8_t get_reset_pin_id(uint8_t pin) {
 		(void)&pin;
-		return RESET_PIN;
+		return PIN_RESET;
 	}
 	static inline uint8_t next_reset_pin(uint8_t pin) {
 		uint8_t first = first_reset_pin();

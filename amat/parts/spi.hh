@@ -257,13 +257,13 @@ namespace Spi {
 	 * Normally called from enable(), but can also be called by user code when switching roles.
 	 */
 	static inline void setup_master_pins(bool low_idle = true) { // {{{
-		Gpio::write(MOSI_PIN, false);
-		Gpio::write(SCK_PIN, !low_idle);
+		Gpio::write(PIN_MOSI, false);
+		Gpio::write(PIN_SCK, !low_idle);
 #ifdef SPI_ENABLE_BOTH
-		Gpio::input(SS_PIN, true);
+		Gpio::input(PIN_SS, true);
 		be_master = true;
 #else
-		Gpio::write(SS_PIN, true);
+		Gpio::write(PIN_SS, true);
 #endif
 		SPCR |= _BV(MSTR);
 	} // }}}
@@ -273,7 +273,7 @@ namespace Spi {
 	 * Normally called from enable(), but can also be called by user code when switching roles.
 	 */
 	static inline void setup_slave_pins() { // {{{
-		Gpio::write(MISO_PIN, false);
+		Gpio::write(PIN_MISO, false);
 #ifdef SPI_ENABLE_BOTH
 		be_master = false;
 #endif
@@ -320,7 +320,7 @@ namespace Spi {
 
 	static inline void _new_packet_sent() { // {{{
 		if ((send_buffer_first_packet + 1) % send_buffer_buffer_allocated_size() != send_buffer_last_packet) {
-			// This was not the first packet, so a sent operation is in progress.
+			// This was not the first packet, so a send operation is in progress.
 			// This packet will be sent after all previous packets have been sent.
 			return;
 		}
@@ -400,9 +400,9 @@ ISR(SPI_STC_vect) { // {{{
 	if (Spi::send_buffer_packet_length() == 0) {
 		// Done with this packet.
 #ifdef SPI_ENABLE_BOTH
-		Gpio::input(SS_PIN, true);
+		Gpio::input(PIN_SS, true);
 #else
-		Gpio::write(SS_PIN, true);
+		Gpio::write(PIN_SS, true);
 #endif
 		Spi::send_buffer_pop();
 #ifdef SPI_RX_SIZE
@@ -425,7 +425,7 @@ ISR(SPI_STC_vect) { // {{{
 #endif
 
 	// Send next byte.
-	Gpio::write(SS_PIN, false);
+	Gpio::write(PIN_SS, false);
 	SPDR = Spi::send_buffer_read(0);
 	Spi::send_buffer_partial_pop(1);
 #else
