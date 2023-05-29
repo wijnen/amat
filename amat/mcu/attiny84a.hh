@@ -216,6 +216,7 @@ enum Source {
 // }}}
 
 #include "../parts/common.hh"
+#include "../parts/adc.hh"
 #include "../parts/comparator.hh"
 #include "../parts/counter1.hh"
 #include "../parts/usi.hh"

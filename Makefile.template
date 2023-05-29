@@ -3,7 +3,9 @@
 # For more information, see the initial part of avr.mk.
 
 # Set this to your program name.
-TARGET = myprogram
+# You can define multiple targets, all of which will be built.
+# If not defined, the default of "firmware" will be used.
+TARGETS = myprogram
 
 # List the program's sources.
 # Files named *.cc are compiled below.
@@ -12,10 +14,15 @@ myprogram_SOURCES = \
 	  myprogram.cc \
 	  myprogram.hh
 
+# If your project has a single target, the sources may instead be defined in the SOURCE variable. The basename of the first source file is used as the target name
+#SOURCE = myprogram.cc myprogram.hh
+
 # Target mcu and upload settings.
+# Using ?= allows the user to override them from the commandline.
 MCU ?= atmega328p
 F_CPU ?= 16000000
 PROTOCOL ?= arduino
 BAUD ?= 57600
 
+# Include this file to make the magic happen.
 include amat.mk
