@@ -1,7 +1,11 @@
 #ifndef AMAT_HH
 #define AMAT_HH
 
-// Set up test machinery before including anything. {{{
+#include <avr/io.h>
+#include <avr/interrupt.h>
+#include <avr/pgmspace.h>
+
+// Set up test machinery before including anything from amat. {{{
 #ifdef AVR_TEST_ALL
 #define AVR_TEST_ADC
 #define AVR_TEST_CLOCK

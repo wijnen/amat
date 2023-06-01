@@ -12,7 +12,7 @@
 
 #ifdef AVR_TEST
 
-#define SYSTEM_CLOCK2_ENABLE
+//#define SYSTEM_CLOCK2_ENABLE
 
 #if AVR_TEST_INDEX == 1
 
@@ -115,6 +115,30 @@ namespace Counter {
 		/// System clock / 1024
 		s2_div1024 = 7
 	}; // }}}
+	// Convert between divider and source values {{{
+/// @cond
+#define _AVR_COUNTER2_D2S(div, x) div == x ? Counter::s2_div ## x :
+#define _AVR_COUNTER2_S2D(src, x) src == Counter::s2_div ## x ? x :
+/// @endcond
+	/// Convert numerical divider to Source2
+#define COUNTER2_DIV_TO_SOURCE(div) ( \
+	_AVR_COUNTER2_D2S(div, 1024) \
+	_AVR_COUNTER2_D2S(div, 256) \
+	_AVR_COUNTER2_D2S(div, 128) \
+	_AVR_COUNTER2_D2S(div, 64) \
+	_AVR_COUNTER2_D2S(div, 32) \
+	_AVR_COUNTER2_D2S(div, 8) \
+	_AVR_COUNTER2_D2S(div, 1) \
+	Counter::s2_off )
+	/// Convert Source2 to numerical divider
+#define COUNTER2_SOURCE_TO_DIV(src) ( \
+	_AVR_COUNTER2_S2D(src, 1024) \
+	_AVR_COUNTER2_S2D(src, 256) \
+	_AVR_COUNTER2_S2D(src, 64) \
+	_AVR_COUNTER2_S2D(src, 8) \
+	_AVR_COUNTER2_S2D(src, 1) \
+	0 )
+	// }}}
 
 	/// Counter mode.
 	enum Mode2 { // {{{

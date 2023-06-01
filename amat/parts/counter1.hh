@@ -277,8 +277,33 @@ namespace Counter {
 
 	/// @cond
 #ifdef TCNT3L
-	typedef Source1 Source3;
-	typedef Mode1 Mode3;
+	enum Source3 { // {{{
+		s3_off = 0,
+		s3_div1 = 1,
+		s3_div8 = 2,
+		s3_div64 = 3,
+		s3_div256 = 4,
+		s3_div1024 = 5,
+		s3_T_falling = 6,
+		s3_T_rising = 7
+	}; // }}}
+	enum Mode3 { // {{{
+		m3_normal = 0,
+		m3_pwm_pc8 = 1,
+		m3_pwm_pc9 = 2,
+		m3_pwm_pc10 = 3,
+		m3_ctc_ocra = 4,
+		m3_pwm_fast8 = 5,
+		m3_pwm_fast9 = 6,
+		m3_pwm_fast10 = 7,
+		m3_pwm_pfc_icr = 8,
+		m3_pwm_pfc_ocra = 9,
+		m3_pwm_pc_icr = 10,
+		m3_pwm_pc_ocra = 11,
+		m3_ctc_icr = 12,
+		m3_pwm_fast_icr = 14,
+		m3_pwm_fast_ocra = 15
+	}; // }}}
 #endif
 #if (defined(TCNT4L) && !defined(TCCR4E))
 	enum Source4 { // {{{
@@ -466,11 +491,11 @@ namespace Counter {
 
 	// Actual implementation of timerN functions. {{{
 #define _AVR_COUNTER(N, OCRB, OCRC) \
-	static inline void enable ## N(Source ## N source = s1_div1, Mode ## N mode = m1_normal) { \
+	static inline void enable ## N(Source ## N source = s ## N ## _div1, Mode ## N mode = m ## N ## _normal) { \
 		TCCR ## N ## A = (mode & 3) << WGM ## N ## 0; \
 		TCCR ## N ## B = ((mode & 0xc) << (WGM ## N ## 2 - 2)) | (source << CS ## N ## 0); \
 	} \
-	static inline void disable ## N() { enable ## N(s1_off); } \
+	static inline void disable ## N() { enable ## N(s ## N ## _off); } \
 	static inline void enable_ovf ## N() { TIMSK ## N |= _BV(TOIE ## N); } \
 	static inline void disable_ovf ## N() { TIMSK ## N &= ~_BV(TOIE ## N); } \
 	static inline void setup_capt ## N(bool rising = true, bool cancel_noise = false) { TCCR ## N ## B = (TCCR ## N ## B & ~(_BV(ICNC ## N) | _BV(ICES ## N))) | (cancel_noise ? _BV(ICNC ## N) : 0) | (rising ? _BV(ICES ## N) : 0); } \
@@ -1524,8 +1549,23 @@ namespace Counter {
 				return false;
 			uint8_t source = Test::read_digit(0);
 			uint8_t mode = Test::read_digit(1);
-			_AVR_COUNTER1_SPLIT_F(enable, (static_cast <Source1>(source), static_cast <Mode1>(mode)););
+#define _AVR_COUNTER1_TMP(N) \
+	if (part == '0' + N) \
+		enable ## N(static_cast <Source ## N>(source), static_cast <Mode ## N>(mode)); \
+	else
+#ifdef TCNT5L
+			_AVR_COUNTER1_TMP(5)
+#endif
+#if (defined(TCNT4L) && !defined(TCCR4E))
+			_AVR_COUNTER1_TMP(4)
+#endif
+#ifdef TCNT3L
+			_AVR_COUNTER1_TMP(3)
+#endif
+			_AVR_COUNTER1_TMP(1)
+				return false;
 			break;
+#undef _AVR_COUNTER1_TMP
 		}
 		case 'd':
 			if (len != 0)

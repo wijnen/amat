@@ -16,7 +16,7 @@
 
 #ifdef AVR_TEST
 
-#define SYSTEM_CLOCK0_ENABLE
+//#define SYSTEM_CLOCK0_ENABLE
 
 #if AVR_TEST_INDEX == 1
 

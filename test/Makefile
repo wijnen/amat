@@ -1,6 +1,6 @@
 # Build system for testing the avr header files.
 
-MCUS = atmega328p atmega1284p atmega168
+MCUS = atmega328p atmega1284p atmega168 atmega2560
 FREQS = 16000000 8000000 32768
 MAXTEST = 0
 EXTRA_CPPFLAGS ?= -DAVR_TEST_INDEX=0

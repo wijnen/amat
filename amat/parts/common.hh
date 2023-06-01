@@ -86,10 +86,6 @@ void system_clock_interrupt() {
 @author Bas Wijnen <wijnen@debian.org>
 */
 
-#include <avr/io.h>
-#include <avr/interrupt.h>
-#include <avr/pgmspace.h>
-
 #ifndef F_CPU
 #warning "F_CPU should be defined explicitly. Using default of 8MHz"
 /// This should be defined by the Makefile, not by the code.

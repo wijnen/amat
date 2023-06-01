@@ -583,18 +583,22 @@ _AVR_DEFAULT_USART(3)
 
 #ifdef AVR_TEST_USART
 	// For testing, define all buffers (if the port is unavailable, this will be ignored).
-	// Port 0 is not tested, because it is the port used for test management.
+	// Port 0 is not tested (1 on atmega32u4), because it is the port used for test management.
+#if defined(UDR0) && !defined(DBG0_ENABLE)
 #define USART_TX1_SIZE 10
-#define USART_TX2_SIZE 10
-#define USART_TX3_SIZE 10
 #define USART_RX1_SIZE 10
+#endif
+
+#define USART_TX2_SIZE 10
 #define USART_RX2_SIZE 10
+
+#define USART_TX3_SIZE 10
 #define USART_RX3_SIZE 10
 #endif
 
 // If this file is included by the MCU, there is at least one usart. If 0 does not exist, 1 does.
 #ifdef USART_TX_SIZE
-#ifdef UDR0
+#if defined(UDR0) && !defined(DBG0_ENABLE)
 #define USART_TX0_SIZE USART_TX_SIZE
 #else
 #define USART_TX1_SIZE USART_TX_SIZE
@@ -887,7 +891,7 @@ namespace Usart {
 // Use Usart0 for communication (and not for testing) unless this mcu has USB support.
 _AVR_TEST_USART_RX(0)
 #endif
-#ifdef UDR1
+#if defined(UDR1) && defined(USB0)
 _AVR_TEST_USART_RX(1)
 #endif
 #ifdef UDR2
