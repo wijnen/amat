@@ -558,6 +558,17 @@ namespace Usb {
 /// @endcond
 #endif
 
+namespace Usb {
+	static inline void disable_interrupts() {
+		// Disable all interrupts.
+		UDIEN = 0;
+		for (uint8_t e = 0; e < 7; ++e) {
+			UENUM = e;
+			UEIENX = 0;
+		}
+	}
+}
+
 #ifdef USB_ENABLE
 
 #ifdef CALL_usb_hid_set_report
@@ -2389,11 +2400,8 @@ namespace Usb {
 	 * the main function. All the rest is declared in variables and macros.
 	 */
 	static inline void enable() { // {{{
-		// Disable all interrupts.
-		UDIEN = 0;
+		disable_interrupts();
 		Usb::in_interrupt = false;
-		for (uint8_t e = 0; e < 7; ++e)
-			UEIENX = 0;
 		// Power on USB pad regulator.
 		UHWCON = _BV(UVREGE);
 		USBCON = _BV(USBE) | _BV(OTGPADE) | _BV(FRZCLK);
@@ -3446,6 +3454,9 @@ namespace Usb {
 #endif
 #endif // defined(AVR_TEST_USB) }}}
 
+#else
+// Boot loader leaves interrupts enabled; disable them to avoid crashing.
+#define _AVR_SETUP_USB Usb::disable_interrupts();
 #endif // defined(USB_ENABLE)
 
 #endif // include guard.

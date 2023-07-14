@@ -33,10 +33,15 @@ TARGETS ?= firmware
 
 
 # Build flags.
-CPPFLAGS ?= -Wall -Wextra -ggdb3 -Wformat -Werror=format-security -D_FORTIFY_SOURCE=2 -Wshadow -fno-strict-aliasing -Werror --param=ssp-buffer-size=4 -std=c++11 ${EXTRA_CPPFLAGS}
-CXXFLAGS ?= -Os ${EXTRA_CXXFLAGS}
-LDFLAGS ?= ${EXTRA_LDFLAGS}
-LIBS ?= ${EXTRA_LIBS}
+STD ?= c++11
+CPPFLAGS ?= -Wall -Wextra -ggdb3 -Wformat -Werror=format-security -D_FORTIFY_SOURCE=2 -Wshadow -fno-strict-aliasing -Werror --param=ssp-buffer-size=4
+CPPFLAGS += -std=${STD} ${EXTRA_CPPFLAGS}
+CXXFLAGS ?= -Os
+CXXFLAGS += -std=${STD} ${EXTRA_CXXFLAGS}
+LDFLAGS ?=
+LDFLAGS += -std=${STD} ${EXTRA_LDFLAGS}
+LIBS ?=
+LIBS += ${EXTRA_LIBS}
 
 
 # Target mcu and upload settings.
@@ -47,7 +52,7 @@ MCU ?= atmega328p
 F_CPU ?= 16000000
 PROTOCOL ?= arduino
 BAUD ?= 57600
-TOUCH1200 ?=	# Set this to non-empty for Leonardo.
+TOUCH1200 ?=	# Set this to non-empty to use 1200 baud-hack for Leonardo.
 
 # Port for uploading to the device.
 # You probably don't need to override this default.

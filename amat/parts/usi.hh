@@ -13,6 +13,7 @@
 // USI_ENABLE_SPI_SLAVE
 // USI_ENABLE_TWI_MASTER
 // USI_ENABLE_TWI_SLAVE
+// USI_ENABLE_UART_TX	Enable 6n1 serial output
 // USI_TWI_ADDRESS	Only used for TWI slave
 // USI_TWI_ADDRESS_MASK
 // USI_TX_SIZE
@@ -33,6 +34,10 @@
    - enable as slave with address
    - send data using ring buffer
    - receive data using ring buffer
+
+   For UART_TX:
+   - enable
+   - send data using ring buffer
 
 
    Clock sources (USICS0:1)
@@ -78,6 +83,10 @@ namespace Usi {
 		Gpio::input(PIN_USCK, false);
 		Gpio::input(PIN_DI, false);
 		USICR = (USICR & (_BV(USISIE) | _BV(USIOIE))) | (_BV(USIWM1) | _BV(USICS1));
+	}
+	inline static void enable_uart_tx() {
+		Gpio::write(PIN_DO, true);
+		USICR = (USICR & (_BV(USISIE) | _BV(USIOIE))) | _BV(USICS0);	// Set wire mode to "Outputs"; set to 3-wire mode when sending a byte.
 	}
 	inline static void enable_start_condition_int() { USICR |= _BV(USISIE); }
 	inline static void disable_start_condition_int() { USICR &= ~_BV(USISIE); }
@@ -211,8 +220,43 @@ namespace Usi {
 	Usi::clear_start(); \
 	Usi::clear_overflow(); \
 	Usi::enable_start_condition_int();
-#endif
 // }}}
+#elif defined(USI_ENABLE_UART_TX)
+// {{{
+	STREAM_BUFFER_WITH_CBS(tx, USI_TX_SIZE, can_read,)
+	static void try_send(} {
+		// First make sure no new transmission is started while we set up.
+		USIDR = 0xff;
+
+		// If there is no more data in the buffer, stop the clock and return.
+		if (tx_buffer_available() < 1) {
+			USICR &= ~(_BV(USIWM0));
+			return;
+		}
+		USIDR = ((tx_read() & 0x3f) << 1) ^ 0x7f;
+		TCNT0 = 0;	// Restart bit counter.
+		USISR = 0;	// Restart overflow counter.
+		USICR |= _BV(USIWM0);	// Set 3-wire mode.
+		// All done; remove byte from buffer.
+		tx_pop();
+	}
+	static void can_read(uint8_t data, uint8_t len) {
+		// Data is available in the buffer.
+
+		// If a byte is being sent, the next will follow automatically; nothing to do here.
+		if (USICR & _BV(USIWM0))
+			return;
+
+		// Attempt to send another byte.
+		try_send();
+	}
+	ISR(USI_OVF_vect) {
+		// Counter overflow on USI timer: data has been sent.
+		// Try sending another byte.
+		try_send();
+	}
+// }}}
+#endif
 }
 
 #ifdef AVR_TEST_USI // {{{
