@@ -558,7 +558,10 @@ namespace Usb {
 /// @endcond
 #endif
 
+// Functions to disable USB. These need to be defined even when USB_ENABLE is not set.
 namespace Usb {
+	/// @cond
+	// Disable all USB interrupts. This should only be used internally.
 	static inline void disable_interrupts() {
 		// Disable all interrupts.
 		UDIEN = 0;
@@ -567,6 +570,20 @@ namespace Usb {
 			UEIENX = 0;
 		}
 	}
+	/// @endcond
+
+	/// Disable the USB system.
+	static inline void disable() { // {{{
+		disable_interrupts();
+		// Detach USB interface.
+		UDCON = _BV(DETACH);
+		// Disable USB interface.
+		USBCON = 0;
+		// Disable PLL.
+		PLLCSR = 0;
+		// Disable USB pad regulator.
+		UHWCON = 0;
+	} // }}}
 }
 
 #ifdef USB_ENABLE
@@ -2401,7 +2418,7 @@ namespace Usb {
 	 */
 	static inline void enable() { // {{{
 		disable_interrupts();
-		Usb::in_interrupt = false;
+		in_interrupt = false;
 		// Power on USB pad regulator.
 		UHWCON = _BV(UVREGE);
 		USBCON = _BV(USBE) | _BV(OTGPADE) | _BV(FRZCLK);
@@ -2412,18 +2429,6 @@ namespace Usb {
 		// Wait for USB VBUS information connection.
 		USBCON = _BV(USBE) | _BV(OTGPADE) | _BV(VBUSTE);
 		detect(); // Force first "interrupt".
-	} // }}}
-
-	/// Disable the USB system.
-	static inline void disable() { // {{{
-		// Detach USB interface.
-		UDCON = _BV(DETACH);
-		// Disable USB interface.
-		USBCON = 0;
-		// Disable PLL.
-		PLLCSR = 0;
-		// Disable USB pad regulator.
-		UHWCON = 0;
 	} // }}}
 
 	/// Initiate a remote wakeup.
@@ -3455,8 +3460,8 @@ namespace Usb {
 #endif // defined(AVR_TEST_USB) }}}
 
 #else
-// Boot loader leaves interrupts enabled; disable them to avoid crashing.
-#define _AVR_SETUP_USB Usb::disable_interrupts();
+// Boot loader leaves USB enabled; disable it to avoid crashing on unhandled interrupts.
+#define _AVR_SETUP_USB Usb::disable();
 #endif // defined(USB_ENABLE)
 
 #endif // include guard.

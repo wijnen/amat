@@ -528,7 +528,7 @@ namespace Counter {
 
 #define _AVR_COUNTER1_OCR(N, p, P) \
 	static inline void enable_oc ## N ## p(uint8_t type = 2) { \
-		TCCR ## N ## P = (TCCR ## N ## P & ~(_BV(COM ## N ## P ## 1) | _BV(COM ## N ## P ## 0))) | (type << COM ## N ## P ## 0); \
+		TCCR ## N ## A = (TCCR ## N ## A & ~(_BV(COM ## N ## P ## 1) | _BV(COM ## N ## P ## 0))) | (type << COM ## N ## P ## 0); \
 	} \
 	static inline void disable_oc ## N ## p() { \
 		enable_oc ## N ## p(0); \
