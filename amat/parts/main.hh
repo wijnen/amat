@@ -166,9 +166,15 @@ int main() {
 	while (true)
 		loop();
 #else
-	sei();
-	while (true)
+	while (true) {
+		// Reset the watchdog timer.
+		asm volatile("wdr");
+
+		// Put sei() in the loop, so interrupts are enabled if we somehow got here while they were disabled.
+		sei();
+
 		Sleep::idle();
+	}
 #endif
 }
 

@@ -33,7 +33,7 @@ TARGETS ?= firmware
 
 
 # Build flags.
-STD ?= c++11
+STD ?= c++14
 CPPFLAGS ?= -Wall -Wextra -ggdb3 -Wformat -Werror=format-security -D_FORTIFY_SOURCE=2 -Wshadow -fno-strict-aliasing -Werror --param=ssp-buffer-size=4
 CPPFLAGS += -std=${STD} ${EXTRA_CPPFLAGS}
 CXXFLAGS ?= -Os

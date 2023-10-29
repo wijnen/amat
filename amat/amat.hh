@@ -4,6 +4,7 @@
 #include <avr/io.h>
 #include <avr/interrupt.h>
 #include <avr/pgmspace.h>
+#include <stdio.h>
 
 // Set up test machinery before including anything from amat. {{{
 #ifdef AVR_TEST_ALL

@@ -102,6 +102,8 @@ namespace Avr {
 		uint32_t dw;
 		uint8_t b[sizeof(uint32_t)];
 	}; // }}}
+	/// Compute a (hex) digit. Parameter must be <= 0xf.
+	inline uint8_t digit(uint8_t d) { return d < 10 ? '0' + d : 'a' - 10 + d; }
 }
 /// @endcond
 
@@ -174,6 +176,15 @@ static inline void stream_buffer_move(uint8_t *buffer, uint8_t num);
 
 /// Write a byte to the buffer. This must only be called when there is space.
 static inline bool stream_buffer_write(uint8_t data);
+
+/// Write len bytes to the buffer. This must only be called when there is enough space.
+static inline bool stream_buffer_write(uint8_t *data, uint8_t len);
+
+/// Write two bytes to the buffer, representing the byte b in hexadecimal.
+static inline bool stream_buffer_write_hex(uint8_t b);
+
+/// Write the format string to the buffer, followed by a newline. # is replaced by the corresponding argument byte and * by the corresponding argument 16-bit word.
+static inline bool stream_buffer_print(char const *format, ...);
 
 /// @}
 
@@ -291,6 +302,48 @@ static inline void packet_buffer_end();
 		can_read(data, name ## _buffer_used()); \
 		return (name ## _tail + 1) % (size) != name ## _head; \
 	} /* }}} */ \
+	static inline bool name ## _write(uint8_t *data, uint8_t len) { /* {{{ */ \
+		/* This must only be called when there is room in the buffer. */ \
+		for (int i = 0; i < len; ++i) { \
+			uint8_t next = (name ## _tail + 1) % (size); \
+			name ## _buffer[name ## _tail] = data[i]; \
+			name ## _tail = next; \
+		} \
+		/* Notify that buffer contains new data. */ \
+		can_read(data[len - 1], name ## _buffer_used()); \
+		return (name ## _tail + 1) % (size) != name ## _head; \
+	} /* }}} */ \
+	static inline bool name ## _write_hex(uint8_t b) { /* {{{ */ \
+		if (!name ## _write(Avr::digit(((b) >> 4) & 0xf))) \
+			return false; \
+		return name ## _write(Avr::digit((b) & 0xf)); \
+	} /* }}} */ \
+	static inline bool name ## _print(char const *format, ...) { /* {{{ */ \
+		va_list args; \
+		va_start(args, format); \
+		while (*format) { \
+			if (*format == '#') { \
+				uint8_t data = va_arg(args, int); \
+				if (!name ## _write_hex(data)) \
+					return false; \
+			} \
+			else if (*format == '*') { \
+				Avr::Word data; \
+				data.w = va_arg(args, int); \
+				if (!name ## _write_hex(data.b[1])) \
+					return false; \
+				if (!name ## _write_hex(data.b[0])) \
+					return false; \
+			} \
+			else { \
+				if (!name ## _write(*format)) \
+					return false; \
+			} \
+			++format; \
+		} \
+		va_end(args); \
+		return name ## _write('\n'); \
+	} /* }}} */
 	// }}}
 // User friendly version:
 #define STREAM_BUFFER(name, size) STREAM_BUFFER_WITH_CBS(name, (size), _AVR_NOP,)
@@ -444,13 +497,10 @@ namespace Usart { static bool tx3_write(uint8_t c); static void tx3_block_ready(
 /// @endcond
 
 #ifdef DBG_ENABLE // {{{
-/// Send a (hex) digit to debugging serial port. Parameter must be <= 0xf.
-#define dbg_digit(d) dbg_char((d) < 10 ? '0' + (d) : 'a' - 10 + (d))
 /// Send a byte to debugging serial port as 2 hex digits.
-#define dbg_byte(b) do { dbg_digit(((b) >> 4) & 0xf); dbg_digit((b) & 0xf); } while (false)
+#define dbg_byte(b) do { dbg_char(Avr::digit(((b) >> 4) & 0xf)); dbg_char(Avr::digit((b) & 0xf)); } while (false)
 /// Send a string to debugging serial port, without any replacements. A newline is sent after the string.
 #define dbg_msg(msg) do { char const *m = (msg); while (*m) dbg_char(*m++); dbg_char('\n'); } while (false)
-#include <stdio.h>
 /// Send a string to debugging serial port, with any replacements. A newline is sent after the string.
 /**
  * When the string contains a '#', it is replaced with the next parameter using
@@ -480,7 +530,6 @@ static inline void dbg(char const *format, ...) {
 }
 #else
 #define dbg_char(c)
-#define dbg_digit(d)
 #define dbg_byte(b)
 #define dbg_msg(m)
 #define dbg(...)
