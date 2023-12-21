@@ -113,13 +113,13 @@ namespace Comparator {
 	/**
 	 * @param edge: trigger source
 	 */
-	static inline void enable(Edge edge = TOGGLE) { // {{{
+	static inline void enable(Edge edge = TOGGLE, bool disable_ain0 = true, bool disable_ain1 = true) { // {{{
 		ACSR &= ~(_BV(ACD) | _BV(ACIS1) | _BV(ACIS0));
 		ACSR |= edge;
 #ifdef AIN0D
-		DIDR1 = _BV(AIN0D)
+		DIDR1 = (disable_ain0 ? _BV(AIN0D) : 0)
 #ifdef AIN1D
-			| _BV(AIN1D)
+			| (disable_ain1 ? _BV(AIN1D) : 0)
 #endif
 			;
 #endif
@@ -150,11 +150,15 @@ namespace Comparator {
 	/// Enable the interrupt.
 	/**
 	 * ISR(ANALOG_COMP_vect) must be defined if this is used.
+	 * This function also clears the interrupt flag.
 	 */
 	static inline void enable_interrupt() { ACSR |= _BV(ACIE) | _BV(ACI); }
 
 	/// Disable the interrupt.
 	static inline void disable_interrupt() { ACSR &= ~_BV(ACIE); }
+
+	/// Clear the interrupt flag.
+	static inline void clear_interrupt() { ACSR |= _BV(ACI); }
 }
 
 #ifdef AVR_TEST_COMPARATOR // {{{
