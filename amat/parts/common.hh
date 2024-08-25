@@ -6,6 +6,7 @@
 // DBG1_ENABLE
 // DBG2_ENABLE
 // DBG3_ENABLE
+// DBG_ENABLE_RAW
 
 #ifndef _AVR_COMMON_HH
 #define _AVR_COMMON_HH
@@ -318,9 +319,7 @@ static inline void packet_buffer_end();
 			return false; \
 		return name ## _write(Avr::digit((b) & 0xf)); \
 	} /* }}} */ \
-	static inline bool name ## _print(char const *format, ...) { /* {{{ */ \
-		va_list args; \
-		va_start(args, format); \
+	static inline bool name ## _print_va(char const *format, va_list args) { /* {{{ */ \
 		while (*format) { \
 			if (*format == '#') { \
 				uint8_t data = va_arg(args, int); \
@@ -341,8 +340,14 @@ static inline void packet_buffer_end();
 			} \
 			++format; \
 		} \
-		va_end(args); \
 		return name ## _write('\n'); \
+	} /* }}} */ \
+	static inline bool name ## _print(char const *format, ...) { /* {{{ */ \
+		va_list args; \
+		va_start(args, format); \
+		bool ret = name ## _print_va(format, args); \
+		va_end(args); \
+		return ret; \
 	} /* }}} */
 	// }}}
 // User friendly version:
@@ -388,6 +393,41 @@ static inline void packet_buffer_end();
 		uint8_t next = (name ## _head[packet] + 1) % (size); \
 		name ## _head[packet] = next; \
 		return (next + 1) % (size) != name ## _head[name ## _first_packet]; \
+	} /* }}} */ \
+	static inline bool name ## _write_hex(uint8_t b) { /* {{{ */ \
+		if (!name ## _write(Avr::digit(((b) >> 4) & 0xf))) \
+			return false; \
+		return name ## _write(Avr::digit((b) & 0xf)); \
+	} /* }}} */ \
+	static inline bool name ## _print_va(char const *format, va_list args) { /* {{{ */ \
+		while (*format) { \
+			if (*format == '#') { \
+				uint8_t data = va_arg(args, int); \
+				if (!name ## _write_hex(data)) \
+					return false; \
+			} \
+			else if (*format == '*') { \
+				Avr::Word data; \
+				data.w = va_arg(args, int); \
+				if (!name ## _write_hex(data.b[1])) \
+					return false; \
+				if (!name ## _write_hex(data.b[0])) \
+					return false; \
+			} \
+			else { \
+				if (!name ## _write(*format)) \
+					return false; \
+			} \
+			++format; \
+		} \
+		return name ## _write('\n'); \
+	} /* }}} */ \
+	static inline bool name ## _print(char const *format, ...) { /* {{{ */ \
+		va_list args; \
+		va_start(args, format); \
+		bool ret = name ## _print_va(format, args); \
+		va_end(args); \
+		return ret; \
 	} /* }}} */ \
 	static inline void name ## _partial_pop(uint8_t n) { /* {{{ Done some reading. */ \
 		name ## _head[name ## _first_packet] = (name ## _head[name ## _first_packet] + n) % ((num_packets) + 2); \
@@ -493,7 +533,16 @@ namespace Usart { static bool tx3_write(uint8_t c); static void tx3_block_ready(
 #define DBG_ENABLE
 #endif
 #endif
+
+// Enable dbg machinery without defining dbg_char (this must be done by the caller).
+#ifdef DBG_ENABLE_RAW
+#define _AVR_SETUP_DBG DBG_ENABLE_RAW
+#ifndef DBG_ENABLE
+#define DBG_ENABLE
+#endif
+#endif
 // }}}
+
 /// @endcond
 
 #ifdef DBG_ENABLE // {{{

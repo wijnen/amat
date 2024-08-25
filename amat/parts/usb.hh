@@ -215,6 +215,9 @@ namespace Usb {}
 	static inline uint8_t newname ## _buffer_available() { return oldname ## _buffer_available(); } \
 	static inline uint8_t newname ## _read(uint8_t pos = 0) { return oldname ## _read(pos); } \
 	static inline bool newname ## _write(uint8_t data) { return oldname ## _write(data); } \
+	static inline bool newname ## _write_hex(uint8_t b) { return oldname ## _write_hex(b); } \
+	static inline bool newname ## _print_va(char const *format, va_list args) { return oldname ## _print_va(format, args); } \
+	static inline bool newname ## _print(const char *format, ...) { va_list args; va_start(args, format); bool ret = oldname ## _print_va(format, args); va_end(args); return ret; } \
 	static inline void newname ## _partial_pop(uint8_t n) { oldname ## _partial_pop(n); } \
 	static inline void newname ## _pop() { oldname ## _pop(); } \
 	static inline void newname ## _end() { oldname ## _end(); }
@@ -227,7 +230,10 @@ namespace Usb {}
 	static inline void newname ## _pop(uint8_t num = 1) { return oldname ## _pop(num); } \
 	static inline uint8_t newname ## _read(uint8_t pos = 0) { return oldname ## _read(pos); } \
 	static inline void newname ## _move(uint8_t *buffer, uint8_t num) { oldname ## _move(buffer, num); } \
-	static inline bool newname ## _write(uint8_t data) { return oldname ## _write(data); }
+	static inline bool newname ## _write(uint8_t data) { return oldname ## _write(data); } \
+	static inline bool newname ## _write_hex(uint8_t b) { return oldname ## _write_hex(b); } \
+	static inline bool newname ## _print_va(char const *format, va_list args) { return oldname ## _print_va(format, args); } \
+	static inline bool newname ## _print(const char *format, ...) { va_list args; va_start(args, format); bool ret = oldname ## _print_va(format, args); va_end(args); return ret; }
 /// @endcond
 
 #define USB_ENABLE
