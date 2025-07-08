@@ -48,10 +48,18 @@ LIBS += ${EXTRA_LIBS}
 # Supported values for mcu are filenames (without .hh) in mcu/.
 # Note that MCU and F_CPU must be global variables; they cannot be different per target.
 # If differing values are required, make needs to be called once for each combination.
-MCU ?= atmega328p
-F_CPU ?= 16000000
-PROTOCOL ?= arduino
-BAUD ?= 57600
+# These values are commented out, because they are usually set by defining a BOARD.
+#MCU ?= atmega328p
+#F_CPU ?= 16000000
+#PROTOCOL ?= arduino
+#BAUD ?= 57600
+
+# Target board. This sets all target values (see above) for some known boards.
+# Setting target values directly will override the BOARD values.
+# Valid values are: uno, uno168, leonardo, melzi.
+BOARD ?= uno
+
+
 TOUCH1200 ?=	# Set this to non-empty to use 1200 baud-hack for Leonardo.
 
 # Port for uploading to the device.
@@ -60,6 +68,37 @@ TOUCH1200 ?=	# Set this to non-empty to use 1200 baud-hack for Leonardo.
 PORT ?= $(strip $(firstword $(wildcard /dev/ttyUSB* /dev/ttyACM*)))
 
 ###################### End of variable list ######################
+
+# Handle BOARD.
+ifeq (${BOARD}, uno)
+MCU ?= atmega328p
+F_CPU ?= 16000000
+PROTOCOL ?= arduino
+BAUD ?= 57600
+else
+ifeq (${BOARD}, uno168)
+MCU ?= atmega168
+F_CPU ?= 16000000
+PROTOCOL ?= arduino
+BAUD ?= 19200
+else
+ifeq (${BOARD}, leonardo)
+MCU ?= atmega32u4
+F_CPU ?= 16000000
+PROTOCOL ?= avr109
+BAUD ?= 115200	# Irrelevant.
+else
+ifeq (${BOARD}, melzi)
+MCU ?= atmega1284p
+F_CPU ?= 16000000
+PROTOCOL ?= arduino
+BAUD ?= 115200
+else
+error No valid BOARD defined.
+endif
+endif
+endif
+endif
 
 # Prepare suffix value including _.
 ifdef SUFFIX

@@ -2699,7 +2699,7 @@ ISR(USB_COM_vect) { // {{{
 								continue;
 							}
 							UENUM = Usb::setup.index.b[0] & 0x7f;
-							if (!UECONX & _BV(EPEN)) {
+							if (!(UECONX & _BV(EPEN))) {
 								UENUM = ep;
 								USB_STALL;
 								continue;
@@ -2750,7 +2750,7 @@ ISR(USB_COM_vect) { // {{{
 								continue;
 							}
 							UENUM = Usb::setup.index.b[0];
-							if (!UECONX & _BV(EPEN)) {
+							if (!(UECONX & _BV(EPEN))) {
 								UENUM = ep;
 								USB_STALL;
 								continue;
@@ -2815,7 +2815,7 @@ ISR(USB_COM_vect) { // {{{
 							UENUM = Usb::setup.index.b[0];
 							uint8_t con = UECONX;
 							UENUM = ep;
-							if (!con & _BV(EPEN)) {
+							if (!(con & _BV(EPEN))) {
 								USB_STALL;
 								continue;
 							}

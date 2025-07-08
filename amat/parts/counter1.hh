@@ -771,7 +771,7 @@ ISR(TIMER1_COMPA_vect) {
 	static inline void busy_wait1(SYSTEM_CLOCK1_TYPE interval) {
 		SYSTEM_CLOCK1_TYPE time = get_time1();
 		SYSTEM_CLOCK1_TYPE target = time + interval;
-		while (time != target) {
+		while (target - time + 100 > 100) {
 			// This may be called with interrupts disabled, so handle overflow events.
 			// If interrupts are enabled, this code will never see the flag as set.
 			if (!Counter::_AVR_COUNTER_CHECK()) {
